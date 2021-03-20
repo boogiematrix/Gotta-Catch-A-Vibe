@@ -1,9 +1,14 @@
-const sprite = document.getElementById('sprite');
-const quote = document.getElementById('quote')
-let bulbadata = ''
-let quoteData = ''
+//const sprite = document.getElementById('sprite');
+//const quote = document.getElementById('quote');
+let cityGeocodeJson
+let hourlyJson
+//let bulbadata = '';
+//let quoteData = '';
 
-async function randomQuote() {
+const weatherApi = 'f7539453617679dd406d1369cc371b9e'
+
+
+/*async function randomQuote() {
     const response = await fetch('https://api.quotable.io/random')
     quoteData = await response.json()
     console.log(`${quoteData.content} —${quoteData.author}`)
@@ -25,6 +30,39 @@ randomQuote()
         console.log(bulbadata)
         sprite.src = bulbadata.sprites.other.dream_world.front_default
         quote.textContent = `${quoteData.content} -${bulbadata.name}`
-    })
+    })*/
+
+const geocode = async () => {
+    const geocodeUrl = `https://api.openweathermap.org/geo/1.0/direct?q=austin&limit=1&appid=${weatherApi}`;
+
+    try {
+        let response = await fetch(geocodeUrl);
+        if (response.ok) {
+            cityGeocodeJson = await response.json();
+            console.log(cityGeocodeJson)
+            return cityGeocodeJson
+        }
+    }
+    catch (error) { console.log(error) }
+}
 
 
+const hourlyWeather = async () => {
+    console.log(cityGeocodeJson)
+    const hourlyUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityGeocodeJson[0].lat}&lon=${cityGeocodeJson[0].lon}&exclude=minutely,daily,alerts&appid=${weatherApi}`
+
+
+    try {
+        let response = await fetch(hourlyUrl);
+        if (response.ok) {
+            hourlyJson = await response.json();
+            console.log(hourlyJson)
+            return hourlyJson
+        }
+    }
+    catch (error) { console.log(error) }
+}
+
+
+geocode()
+    .then(hourlyWeather)
