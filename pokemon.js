@@ -48,7 +48,7 @@ const geocode = async () => {
 
 
 const hourlyWeather = async () => {
-    console.log(cityGeocodeJson)
+
     const hourlyUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityGeocodeJson[0].lat}&lon=${cityGeocodeJson[0].lon}&exclude=minutely,daily,alerts&appid=${weatherApi}`
 
 
@@ -63,6 +63,26 @@ const hourlyWeather = async () => {
     catch (error) { console.log(error) }
 }
 
+const pokemonGo = async () => {
+
+    try {
+        let response = await fetch('https://pokemon-go1.p.rapidapi.com/weather_boosts.json', {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "119f8e8ccdmsh2f0baf11616eba9p17e7e2jsn222509c198f4",
+                "x-rapidapi-host": "pokemon-go1.p.rapidapi.com"
+            }
+        });
+        if (response.ok) {
+            pokemonGoJson = await response.json();
+            console.log(pokemonGoJson)
+            return pokemonGoJson
+        }
+    }
+    catch (error) { console.log(error) }
+}
+
 
 geocode()
     .then(hourlyWeather)
+    .then(pokemonGo)
