@@ -84,5 +84,34 @@ const pokemonGo = async () => {
 
 
 geocode()
-    .then(hourlyWeather)
-    .then(pokemonGo)
+    //.then(hourlyWeather)
+    //.then(pokemonGo)
+    .then(function () {
+        return Promise.all([hourlyWeather(), pokemonGo()])
+    })
+    .then(function (pokeWeather) {
+        let condition = [];
+
+        for (i = 0; i < 8; i++) {
+            let weatherId = pokeWeather[0].hourly[i].weather[0].id;
+            let main = pokeWeather[0].hourly[i].weather[0].main
+            if (main === 'Rain' || main === 'Drizzle') {
+                condition.push('Rainy');
+            } else if (main === 'Snow') {
+                condiiton.push('Snow');
+            } else if (weatherId >= 801 && weatherId <= 803) {
+                condition.push('Partly cloudy');
+            } else if (pokeWeather[0].hourly[i].wind_gust + pokeWeather[0].hourly[i].wind_speed > 34.2) {
+                condition.push('Windy');
+            } else if (weatherId >= 701 && weatherId <= 762) {
+                condition.push('Fog')
+            } else if (weatherId === 804) {
+                condition.push('Overcast')
+            } else if (main === clear) {
+                condition.push('Clear')
+            }
+        }
+        console.log(condition)
+        //rendering
+
+    })
