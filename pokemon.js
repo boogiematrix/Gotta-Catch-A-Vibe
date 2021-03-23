@@ -95,7 +95,7 @@ geocode()
         for (i = 0; i < 8; i++) {
             let weatherId = pokeWeather[0].hourly[i].weather[0].id;
             let main = pokeWeather[0].hourly[i].weather[0].main
-            if (main === 'Rain' || main === 'Drizzle') {
+            if (main === 'Rain' || main === 'Drizzle' || main === 'Thunderstorm') {
                 condition.push('Rainy');
             } else if (main === 'Snow') {
                 condiiton.push('Snow');
