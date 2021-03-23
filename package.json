@@ -1,0 +1,26 @@
+{
+  "name": "Gotta-Catch-A-Vibe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.8",
+    "tailwindcss": "^2.0.4"
+  },
+  "scripts": {
+    "build-css": "tailwindcss build src/style.css -o public/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jasonrosasramirez/Gotta-Catch-A-Vibe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jasonrosasramirez/Gotta-Catch-A-Vibe/issues"
+  },
+  "homepage": "https://github.com/Jasonrosasramirez/Gotta-Catch-A-Vibe#readme"
+}
