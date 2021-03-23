@@ -1,30 +1,41 @@
-const sprite = document.getElementById('sprite');
-const quote = document.getElementById('quote')
-let bulbadata = ''
-let quoteData = ''
+var searchSubmitButtonE1 = $("#searchSubmitButton");
+var recentCitySearch1E1 = $("#recentCitySearch1"); // The city blocks displayed in search history 
 
-async function randomQuote() {
-    const response = await fetch('https://api.quotable.io/random')
-    quoteData = await response.json()
-    console.log(`${quoteData.content} —${quoteData.author}`)
-}
 
-async function randomPokemon() {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon/')
-    const data = await response.json();
-    const bulbasaur = await fetch(data.results[0].url)
-    bulbadata = await bulbasaur.json();
-    console.log(bulbadata)
-    //obj = bulbadata
-}
 
-randomQuote()
-    .then(
-        randomPokemon())
-    .then(function () {
-        console.log(bulbadata)
-        sprite.src = bulbadata.sprites.other.dream_world.front_default
-        quote.textContent = `${quoteData.content} -${bulbadata.name}`
-    })
+
+
+searchSubmitButtonE1.on("click", function(event){
+    event.preventDefault();
+
+
+    var citySearchBoxText = document.getElementById("searchInput").value; // Text we want stored. From the search bar
+    recentCitySearch1E1.text(citySearchBoxText); // Displays to screen using what was typed into search bar
+
+
+    localStorage.setItem("searchInputStorage", citySearchBoxText); //like declaring a new variable. The set Item always sa
+ // localStorage.setItem(what you're storing to, what you are actually storing)
+
+})
+
+
+$("#recentCitySearch1").text(localStorage.getItem("searchInputStorage"));
+
+
+
+
+/* Variable Definition 
+
+. searchSubmitButtonE1 | References search button in HTML
+. recentCitySearch1E1  | References text for HTML display 
+. citySearchBoxText    | References what was typed into the search bar
+.
+. citySearchBoxSave    | Changes recentCitySearch1E1 to whatever was typed in for citySearchBoxText 
+.
+
+
+
+*/
+
 
 
