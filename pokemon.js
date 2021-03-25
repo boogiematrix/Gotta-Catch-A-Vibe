@@ -1,26 +1,29 @@
 
-var searchSubmitButtonE1 = $("#searchSubmitButton");
-var recentCitySearch1E1 = $("#recentCitySearch1"); // The city blocks displayed in search history 
+var searchSubmitButtonE1 = document.getElementById("searchSubmitButton");
+var recentCitySearch1E1 = document.getElementById("recentCitySearch1"); // The city blocks displayed in search history 
+let city = document.getElementById('searchInput');
+let cityGeocodeJson;
+let hourlyJson;
+
+const weatherApi = 'f7539453617679dd406d1369cc371b9e';
 
 
 
 
 
-searchSubmitButtonE1.on("click", function (event) {
+searchSubmitButtonE1.addEventListener("click", function (event) {
     event.preventDefault();
 
+    getDataAndRender();
 
-    var citySearchBoxText = document.getElementById("searchInput").value; // Text we want stored. From the search bar
-    recentCitySearch1E1.text(citySearchBoxText); // Displays to screen using what was typed into search bar
+    recentCitySearch1E1.textContent = city.value; // Displays to screen using what was typed into search bar
 
-
-    localStorage.setItem("searchInputStorage", citySearchBoxText); //like declaring a new variable. The set Item always sa
-    // localStorage.setItem(what you're storing to, what you are actually storing)
-
+    localStorage.setItem("searchInputStorage", city.value); 
+    
 })
 
 
-$("#recentCitySearch1").text(localStorage.getItem("searchInputStorage"));
+recentCitySearch1E1.textContent = localStorage.getItem("searchInputStorage");
 
 
 
@@ -39,14 +42,9 @@ $("#recentCitySearch1").text(localStorage.getItem("searchInputStorage"));
 */
 
 
-let cityGeocodeJson
-let hourlyJson
-
-const weatherApi = 'f7539453617679dd406d1369cc371b9e'
-
-
+//api call for the longitude and latitude
 const geocode = async () => {
-    const geocodeUrl = `https://api.openweathermap.org/geo/1.0/direct?q=austin&limit=1&appid=${weatherApi}`;
+    const geocodeUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city.value}&limit=1&appid=${weatherApi}`;
 
     try {
         let response = await fetch(geocodeUrl);
@@ -57,9 +55,9 @@ const geocode = async () => {
         }
     }
     catch (error) { console.log(error) }
-}
+};
 
-
+//api call for the hourly weather
 const hourlyWeather = async () => {
 
     const hourlyUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityGeocodeJson[0].lat}&lon=${cityGeocodeJson[0].lon}&exclude=minutely,daily,alerts&appid=${weatherApi}`
@@ -74,10 +72,10 @@ const hourlyWeather = async () => {
         }
     }
     catch (error) { console.log(error) }
-}
+};
 
-
-let weatherBoosters = {
+//data from pokemon go api weather that boosts pokemon types
+const weatherBoosters = {
     Clear: [
         "Grass",
         "Ground",
@@ -113,36 +111,40 @@ let weatherBoosters = {
 }
 
 
-
-geocode()
-    .then(hourlyWeather)
-    .then(function (pokeWeather) {
-        let condition = [];
-        let boostedTypes = [];
-        for (i = 0; i < 8; i++) {
-            let weatherId = pokeWeather.hourly[i].weather[0].id;
-            let main = pokeWeather.hourly[i].weather[0].main
-            if (main === 'Rain' || main === 'Drizzle' || main === 'Thunderstorm') {
-                condition.push('Rainy');
-            } else if (main === 'Snow') {
-                condition.push('Snow');
-            } else if (weatherId >= 801 && weatherId <= 803) {
-                condition.push('Partly_Cloudy');
-            } else if (pokeWeather.hourly[i].wind_gust + pokeWeather.hourly[i].wind_speed > 34.2) {
-                condition.push('Windy');
-            } else if (weatherId >= 701 && weatherId <= 762) {
-                condition.push('Fog')
-            } else if (weatherId === 804) {
-                condition.push('Overcast')
-            } else if (main === clear) {
-                condition.push('Clear')
+const getDataAndRender = function () {
+    geocode()
+        .then(hourlyWeather)
+        .then(function (pokeWeather) {
+            let condition = [];
+            let boostedTypes = [];
+            
+            //translates openweather weather conditions into the 7 weather types used by pokemon go
+            for (i = 0; i < 8; i++) {
+                let weatherId = pokeWeather.hourly[i].weather[0].id;
+                let main = pokeWeather.hourly[i].weather[0].main
+                if (main === 'Rain' || main === 'Drizzle' || main === 'Thunderstorm') {
+                    condition.push('Rainy');
+                } else if (main === 'Snow') {
+                    condition.push('Snow');
+                } else if (weatherId >= 801 && weatherId <= 803) {
+                    condition.push('Partly_Cloudy');
+                } else if (pokeWeather.hourly[i].wind_gust + pokeWeather.hourly[i].wind_speed > 34.2) {
+                    condition.push('Windy');
+                } else if (weatherId >= 701 && weatherId <= 762) {
+                    condition.push('Fog')
+                } else if (weatherId === 804) {
+                    condition.push('Overcast')
+                } else if (main === 'Clear') {
+                    condition.push('Clear')
+                }
             }
-        }
-        console.log(condition)
+            console.log(condition)
 
-        for (let i = 0; i < condition.length; i++) {
-            boostedTypes.push(weatherBoosters[condition[i]])
-        }
-        console.log(boostedTypes)
-        return boostedTypes
-    })
+            //plugs the weather condition at the hour into the pokemon go array to get the types boosted
+            for (let i = 0; i < condition.length; i++) {
+                boostedTypes.push(weatherBoosters[condition[i]])
+            }
+            console.log(boostedTypes)
+            return boostedTypes
+        })
+}
