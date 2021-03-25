@@ -5,10 +5,11 @@ let city = document.getElementById('searchInput');
 let cityGeocodeJson;
 let hourlyJson;
 
+
 const weatherApi = 'f7539453617679dd406d1369cc371b9e';
 
-
-
+var searchHistoryArray= [];
+var searchHistoryArrayIndex = 0;
 
 
 searchSubmitButtonE1.addEventListener("click", function (event) {
@@ -19,11 +20,29 @@ searchSubmitButtonE1.addEventListener("click", function (event) {
     recentCitySearch1E1.textContent = city.value; // Displays to screen using what was typed into search bar
 
     localStorage.setItem("searchInputStorage", city.value); 
-    
+    searchHistoryPopulate(city.value); // passes on the city name
 })
 
 
 recentCitySearch1E1.textContent = localStorage.getItem("searchInputStorage");
+
+function searchHistoryPopulate(cityName) {
+    // triggered by search button press 
+    searchHistoryArrayIndex += 1;
+    console.log("after increment " + searchHistoryArrayIndex + " | City name is " + cityName);
+
+
+    searchHistoryListE1 = document.getElementById("searchHistoryList");
+    var newHeading = document.createElement("li");
+    newHeading.innerText = cityName;
+    searchHistoryListE1.appendChild(newHeading);
+
+
+}
+
+
+
+
 
 
 
@@ -32,11 +51,13 @@ recentCitySearch1E1.textContent = localStorage.getItem("searchInputStorage");
 
 . searchSubmitButtonE1 | References search button in HTML
 . recentCitySearch1E1  | References text for HTML display 
-. citySearchBoxText    | References what was typed into the search bar
+. 
 .
-. citySearchBoxSave    | Changes recentCitySearch1E1 to whatever was typed in for citySearchBoxText 
+.
 .
 
+git push like this below -- 
+git push origin localStorage
 
 
 */
