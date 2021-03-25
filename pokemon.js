@@ -6,7 +6,7 @@ var recentCitySearch1E1 = $("#recentCitySearch1"); // The city blocks displayed 
 
 
 
-searchSubmitButtonE1.on("click", function(event){
+searchSubmitButtonE1.on("click", function (event) {
     event.preventDefault();
 
 
@@ -15,7 +15,7 @@ searchSubmitButtonE1.on("click", function(event){
 
 
     localStorage.setItem("searchInputStorage", citySearchBoxText); //like declaring a new variable. The set Item always sa
- // localStorage.setItem(what you're storing to, what you are actually storing)
+    // localStorage.setItem(what you're storing to, what you are actually storing)
 
 })
 
@@ -76,43 +76,59 @@ const hourlyWeather = async () => {
     catch (error) { console.log(error) }
 }
 
-const pokemonGo = async () => {
 
-    try {
-        let response = await fetch('https://pokemon-go1.p.rapidapi.com/weather_boosts.json', {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": "119f8e8ccdmsh2f0baf11616eba9p17e7e2jsn222509c198f4",
-                "x-rapidapi-host": "pokemon-go1.p.rapidapi.com"
-            }
-        });
-        if (response.ok) {
-            pokemonGoJson = await response.json();
-            console.log(pokemonGoJson)
-            return pokemonGoJson
-        }
-    }
-    catch (error) { console.log(error) }
+let weatherBoosters = {
+    Clear: [
+        "Grass",
+        "Ground",
+        "Fire"
+    ],
+    Fog: [
+        "Dark",
+        "Ghost"
+    ],
+    Overcast: [
+        "Fairy",
+        "Fighting",
+        "Poison"
+    ],
+    Partly_Cloudy: [
+        "Normal",
+        "Rock"
+    ],
+    Rainy: [
+        "Water",
+        "Electric",
+        "Bug"
+    ],
+    Snow: [
+        "Ice",
+        "Steel"
+    ],
+    Windy: [
+        "Dragon",
+        "Flying",
+        "Psychic"
+    ]
 }
 
 
+
 geocode()
-    .then(function () {
-        return Promise.all([hourlyWeather(), pokemonGo()])
-    })
+    .then(hourlyWeather)
     .then(function (pokeWeather) {
         let condition = [];
-
+        let boostedTypes = [];
         for (i = 0; i < 8; i++) {
-            let weatherId = pokeWeather[0].hourly[i].weather[0].id;
-            let main = pokeWeather[0].hourly[i].weather[0].main
-            if (main === 'Rain' || main === 'Drizzle') {
+            let weatherId = pokeWeather.hourly[i].weather[0].id;
+            let main = pokeWeather.hourly[i].weather[0].main
+            if (main === 'Rain' || main === 'Drizzle' || main === 'Thunderstorm') {
                 condition.push('Rainy');
             } else if (main === 'Snow') {
-                condiiton.push('Snow');
+                condition.push('Snow');
             } else if (weatherId >= 801 && weatherId <= 803) {
-                condition.push('Partly cloudy');
-            } else if (pokeWeather[0].hourly[i].wind_gust + pokeWeather[0].hourly[i].wind_speed > 34.2) {
+                condition.push('Partly_Cloudy');
+            } else if (pokeWeather.hourly[i].wind_gust + pokeWeather.hourly[i].wind_speed > 34.2) {
                 condition.push('Windy');
             } else if (weatherId >= 701 && weatherId <= 762) {
                 condition.push('Fog')
@@ -123,6 +139,10 @@ geocode()
             }
         }
         console.log(condition)
-        //rendering
 
+        for (let i = 0; i < condition.length; i++) {
+            boostedTypes.push(weatherBoosters[condition[i]])
+        }
+        console.log(boostedTypes)
+        return boostedTypes
     })
