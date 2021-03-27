@@ -3,7 +3,8 @@ var recentCitySearch1E1 = document.getElementById("recentCitySearch1"); // The c
 let city = document.getElementById('searchInput');
 let cityGeocodeJson;
 let hourlyJson;
-
+var mainCardsDiv = document.querySelector(".mainCard");
+var dayCardsDiv = document.querySelector(".dayCard");
 
 const weatherApi = 'f7539453617679dd406d1369cc371b9e';
 
@@ -236,6 +237,75 @@ const hourlyWeather = async () => {
     catch (error) { console.log(error) }
 };
 
+//const pokeTypeApi = async (pokeapiUrl) => {
+//}
+
+const pokemonOfAType = async (boostedTypes) => {
+    let backgroundpokemontype = [];
+    let backgroundPokemon = [];
+    for (i = 0; i < boostedTypes.length; i++) {
+        backgroundpokemontype.push(boostedTypes[i][Math.floor(Math.random() * boostedTypes[i].length)])
+    }
+    for (i = 0; i < backgroundpokemontype.length; i++) {
+        let pokeApiUrl = `https://pokeapi.co/api/v2/type/${backgroundpokemontype[i].toLowerCase()}`;
+        //pokeTypeApi()
+        try {
+            let response = await fetch(pokeApiUrl);
+            if (response.ok) {
+                pokeTypeApiJson = await response.json();
+                console.log(pokeTypeApiJson)
+                backgroundPokemon.push(pokeTypeApiJson.pokemon[0].pokemon.name)
+            }
+        }
+        catch (error) { console.log(error) }
+        
+    }
+
+    console.log(backgroundPokemon)
+    return backgroundPokemon
+}
+
+const pokemonSprites = async (backgroundPokemon) => {
+    let pokemonImages = [];
+    for (i = 0; i < backgroundPokemon.length; i++) {
+        let pokeImageUrl = `https://pokeapi.co/api/v2/pokemon/${backgroundPokemon[i]}/`;
+        try {
+            let response = await fetch(pokeImageUrl);
+            if (response.ok) {
+                pokeImageApiJson = await response.json();
+                console.log(pokeImageApiJson)
+                pokemonImages.push(pokeImageApiJson.sprites.other.dream_world.front_default)
+            }
+        }
+        catch (error) { console.log(error) }
+    }
+    console.log(pokemonImages)
+    
+    
+    mainCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[0]}); background-repeat: no-repeat`);
+    return pokemonImages
+}
+const pokemonTypes = [
+    "Grass",
+    "Ground",
+    "Fire",
+    "Dark",
+    "Ghost",
+    "Fairy",
+    "Fighting",
+    "Poison",
+    "Normal",
+    "Rock",
+    "Water",
+    "Electric",
+    "Bug",
+    "Ice",
+    "Steel",
+           "Dragon",
+        "Flying",
+        "Psychic"
+]
+
 //data from pokemon go api weather that boosts pokemon types
 const weatherBoosters = {
     Clear: [
@@ -315,28 +385,39 @@ const getDataAndRender = function () {
                     elementTypes = "Grass, Ground, Fire";
                 }
             }
-            console.log( pokeWeather);
+            console.log(condition);
 
             //plugs the weather condition at the hour into the pokemon go array to get the types boosted
             for (let i = 0; i < condition.length; i++) {
                 boostedTypes.push(weatherBoosters[condition[i]])
             }
+            
             console.log(boostedTypes)
-           displayMainCard(pokeWeather,boostedTypes);
-           displayDaycard(pokeWeather,boostedTypes);
-           displayHourCard(pokeWeather,boostedTypes);
-      
+            pokemonOfAType(boostedTypes)
+                .then(pokemonSprites)
+            
+                //.then(function () {
+                  //  return Promise.all(displayMainCard(pokeWeather, boostedTypes),
+                    //displayDaycard(pokeWeather, boostedTypes),
+                    //displayHourCard(pokeWeather, boostedTypes))
+            //})
+            displayMainCard(pokeWeather, boostedTypes);
+            displayDaycard(pokeWeather, boostedTypes);
+            displayHourCard(pokeWeather, boostedTypes);
+            
 
-           // return boostedTypes
+           return boostedTypes
 
         })
+        //.then(pokemonOfAType)
+    //.then(pokemonSprites)
 
         
 
        function displayMainCard(PokeWeather, typesOb){
            
      //connecting to weatherCards dive
-        var mainCardsDiv = document.querySelector(".mainCard");
+        //var mainCardsDiv = document.querySelector(".mainCard");
   
     
         //displays for times and dates
