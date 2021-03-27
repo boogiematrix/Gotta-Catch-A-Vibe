@@ -15,7 +15,7 @@ var searchHistoryArrayIndex = 0;
 searchSubmitButtonE1.addEventListener("click", function (event) {
     event.preventDefault();
 
-    searchHistoryPopulate(citySearchBoxText); // passes on the city name
+    //searchHistoryPopulate(citySearchBoxText); // passes on the city name
   
     getDataAndRender();
 
@@ -172,34 +172,202 @@ const getDataAndRender = function () {
         .then(function (pokeWeather) {
             let condition = [];
             let boostedTypes = [];
+            elementTypes = "";
             
             //translates openweather weather conditions into the 7 weather types used by pokemon go
             for (i = 0; i < 8; i++) {
                 let weatherId = pokeWeather.hourly[i].weather[0].id;
                 let main = pokeWeather.hourly[i].weather[0].main
                 if (main === 'Rain' || main === 'Drizzle' || main === 'Thunderstorm') {
-                    condition.push('Rainy');
-                } else if (main === 'Snow') {
+                     condition.push('Rainy');
+                     elementTypes = "Water, Electric, Bug";
+                } 
+                else if (main === 'Snow') {
                     condition.push('Snow');
+                    elementTypes = "Steel, Ice";
+
                 } else if (weatherId >= 801 && weatherId <= 803) {
                     condition.push('Partly_Cloudy');
+                    elementTypes = "Normal, Rock";
+
                 } else if (pokeWeather.hourly[i].wind_gust + pokeWeather.hourly[i].wind_speed > 34.2) {
                     condition.push('Windy');
+                    elementTypes = "Dragon, Flying, Psychic";
+
                 } else if (weatherId >= 701 && weatherId <= 762) {
                     condition.push('Fog')
+                    elementTypes = "Dark, Ghost";
+
                 } else if (weatherId === 804) {
                     condition.push('Overcast')
+                    elementTypes = "Fairy,Fighting, Poison";
                 } else if (main === 'Clear') {
                     condition.push('Clear')
+                    elementTypes = "Grass, Ground, Fire";
                 }
             }
-            console.log(condition)
+            console.log( pokeWeather);
 
             //plugs the weather condition at the hour into the pokemon go array to get the types boosted
             for (let i = 0; i < condition.length; i++) {
                 boostedTypes.push(weatherBoosters[condition[i]])
             }
-            console.log(boostedTypes)
-            return boostedTypes
+            console.log(boostedTypes[0])
+           displayMainCard(pokeWeather,boostedTypes);
+           displayDaycard(pokeWeather,boostedTypes);
+           displayHourCard(pokeWeather,boostedTypes);
+      
+
+           // return boostedTypes
+
         })
+
+        
+
+       function displayMainCard(PokeWeather, typesOb){
+           
+     //connecting to weatherCards dive
+        var mainCardsDiv = document.querySelector(".mainCard");
+  
+    
+        //displays for times and dates
+           var currentTime = moment().format("LT");
+            var currentDate = moment().format("LL");
+           // var duration = moment.duration(8,"hours");
+            //var numberOfHours = currentTime.add(duration);
+           // var stamp = pokeWeather[0].hourly[0].dt * 1000;
+           // var newTime = stamp.getHours();
+            
+            //Creating the html elements  
+            var dateEl = document.createElement("h2");
+            //The time html Element
+            var timeSlotEl = document.createElement("h3");
+            //weather Icon
+            var weatherIconEl = document.createElement("img");
+             //weather condition
+            var conditionsEL = document.createElement("p");
+            // the temperature
+            var tempEl = document.createElement("h4");
+            //the types
+            var theTypesEl = document.createElement("p");
+    
+            //Setting the html elements for the first card EX
+            dateEl.textContent = currentDate;
+            var ftemp = Math.floor((PokeWeather.hourly[0].temp -273.15) * 1.8 +32);
+            timeSlotEl.textContent = currentTime;
+    
+            weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ PokeWeather.hourly[0].weather[0].icon + ".png");
+            tempEl.textContent ="Temp: " + ftemp;
+            conditionsEL.textContent = PokeWeather.hourly[0].weather[0].main;
+            theTypesEl.textContent = typesOb[0];
+            //console.log(pokeWeather[0].main);
+            mainCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
+    
+    
+          // console.log(currentDate,currentTime, duration);
+          mainCardsDiv.append(dateEl,timeSlotEl,conditionsEL,weatherIconEl,tempEl, theTypesEl);
+
+
+       }
+       function displayDaycard(pokeW,typesO){
+              //connecting to weatherCards dive
+        var dayCardsDiv = document.querySelector(".dayCard");
+  
+    
+        //displays for times and dates
+           var currentTime = moment();
+
+            var currentDate = moment();
+          var nextDay =  currentDate.add('1', 'days');
+           // var duration = moment.duration(8,"hours");
+            //var numberOfHours = currentTime.add(duration);
+           // var stamp = pokeWeather[0].hourly[0].dt * 1000;
+           // var newTime = stamp.getHours();
+            
+            //Creating the html elements  
+            var dateEl = document.createElement("h2");
+            //The time html Element
+            var timeSlotEl = document.createElement("h3");
+            //weather Icon
+            var weatherIconEl = document.createElement("img");
+             //weather condition
+            var conditionsEL = document.createElement("p");
+            // the temperature
+            var tempEl = document.createElement("h4");
+            //the types
+            var theTypesEl = document.createElement("p");
+    
+            //Setting the html elements for the first card EX
+            dateEl.textContent = nextDay.format("LL");
+            var ftemp = Math.floor((pokeW.hourly[47].temp -273.15) * 1.8 +32);
+            timeSlotEl.textContent = currentTime;
+    
+            weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ pokeW.hourly[47].weather[0].icon + ".png");
+            tempEl.textContent ="Temp: " + ftemp;
+            conditionsEL.textContent = pokeW.hourly[47].weather[0].main;
+            theTypesEl.textContent = typesO[0].value;
+            //console.log(pokeWeather[0].main);
+            dayCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
+    
+    
+          // console.log(currentDate,currentTime, duration);
+          dayCardsDiv.append(dateEl,conditionsEL,weatherIconEl,tempEl);
+
+
+       }
+       
+       function displayHourCard(poki,boss)
+       {
+           for (var i = 0; i < 6; i++) {
+                     //connecting to weatherCards dive
+        var hourlyCardsDiv = document.querySelector(".hourlyCards");
+  
+    
+        //displays for times and dates
+           var currentTime = moment();
+           currentTime.add("1","hours");
+           var newtime = currentTime.add(i,'hours');
+           newtime.format("LT");
+
+            var currentDate = moment();
+          //var nextDay =  currentDate.add('1', 'days');
+           // var duration = moment.duration(8,"hours");
+            //var numberOfHours = currentTime.add(duration);
+           // var stamp = pokeWeather[0].hourly[0].dt * 1000;
+           // var newTime = stamp.getHours();
+            
+            //Creating the html elements  
+           // var dateEl = document.createElement("h2");
+            //The time html Element
+            var timeSlotEl = document.createElement("h3");
+            //weather Icon
+            var weatherIconEl = document.createElement("img");
+             //weather condition
+            var conditionsEL = document.createElement("p");
+            // the temperature
+            var tempEl = document.createElement("h4");
+            //the types
+            var theTypesEl = document.createElement("p");
+    
+            //Setting the html elements for the first card EX
+            //dateEl.textContent = nextDay.format("LL");
+            var ftemp = Math.floor((poki.hourly[i].temp -273.15) * 1.8 +32);
+            timeSlotEl.textContent = newtime.format("LT");
+    
+            weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ poki.hourly[i].weather[0].icon + ".png");
+            tempEl.textContent ="Temp: " + ftemp;
+            conditionsEL.textContent = poki.hourly[i].weather[0].main;
+            theTypesEl.textContent = boss[i];
+            //console.log(pokeWeather[0].main);
+            hourlyCardsDiv.setAttribute("style","border:3px solid black; width:50%;height:50%; display:flex; justify-content: space-between")
+    
+          // console.log(currentDate,currentTime, duration);
+          hourlyCardsDiv.append(timeSlotEl,conditionsEL,weatherIconEl,tempEl,theTypesEl);
+
+           
+               
+           }
+
+       
+       }
 }
