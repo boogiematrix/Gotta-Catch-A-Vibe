@@ -1,3 +1,9 @@
+var searchSubmitButtonE1 = document.getElementById("searchSubmitButton");
+var recentCitySearch1E1 = document.getElementById("recentCitySearch1"); // The city blocks displayed in search history 
+let city = document.getElementById('searchInput');
+let cityGeocodeJson;
+let hourlyJson;
+
 
 var searchSubmitButtonE1 = document.getElementById("searchSubmitButton");
 var recentCitySearch1E1 = document.getElementById("recentCitySearch1"); // The city blocks displayed in search history 
@@ -8,11 +14,16 @@ let hourlyJson;
 
 const weatherApi = 'f7539453617679dd406d1369cc371b9e';
 
+
+var searchHistoryArray= [];
+var searchHistoryArrayIndex = 0;
+
+const weatherApi = 'f7539453617679dd406d1369cc371b9e';
+
+
 var searchHistoryArray= [];
 var searchHistoryArrayIndex = 0;
 var searchButtonPresses = 0;
-
-
 
 
 searchSubmitButtonE1.addEventListener("click", function (event) {
@@ -26,6 +37,7 @@ searchSubmitButtonE1.addEventListener("click", function (event) {
 
     recentCitySearch1E1.textContent = city.value; // Displays to screen using what was typed into search bar
 
+
     localStorage.setItem("searchInputStorage", city.value); 
     searchHistoryPopulate(city.value); // passes on the city name
 
@@ -38,6 +50,24 @@ function searchHistoryPopulate(cityName) {
     // triggered by search button press 
 
     
+/*
+    searchHistoryArrayIndex += 1; // incriments index per push 
+    searchHistoryArray.push(cityName); // adds last city name to this array
+
+
+    
+    // displays to screen 
+    var searchHistoryListE1 = document.getElementById("searchHistoryList");
+    var newHeading = document.createElement("li");
+    
+    var idTag = "searchInput" + searchHistoryArrayIndex;
+        //var idTag = "searchInput" + searchHistoryArrayIndex;
+    
+    newHeading.setAttribute("id", idTag);
+    newHeading.innerText = cityName;
+    searchHistoryListE1.appendChild(newHeading);
+*/
+
 
 
     // Create elements which display to the screen as bullet points
@@ -100,11 +130,18 @@ for(var i = 0; i < searchHistoryArrayIndex; i++) {
  
     
      
+
     // sets to local storage
     var storageLocal = "searchInputStorage" + searchHistoryArrayIndex;
         // var storageLocal = "searchInputStorage" + searchHistoryArrayIndex;
     localStorage.setItem(storageLocal, cityName); // like declaring a new variable. 
     localStorage.setItem("searchInputStorage", cityName); // for the first text under search history 1
+
+
+    // debugging 
+    console.log(searchHistoryArray);
+    console.log("-- idTag & index " + idTag + " | getElement result " + newHeading.getAttribute("id"));
+    console.log("the storageLocal " + storageLocal);
 
 
 
@@ -124,6 +161,7 @@ for(var i = 0; i < searchHistoryArrayIndex; i++) {
     console.log(searchHistoryArray);
     console.log("New Heading ID " + newHeading.getAttribute("id") + " | local storage name " + storageLocal + " | Current Array Index " + searchHistoryArrayIndex + " | array Length " + searchHistoryArrayLength);
     
+
 }
 
 
@@ -159,6 +197,23 @@ git push like this below --
 git push origin localStorage
 
 
+//$(idTag).text(localStorage.getItem(storageLocal));
+//$(HTMLreference ID).text(localStorage.getItem(where it was stored))
+
+
+
+
+
+
+/* Variable Definition 
+. searchSubmitButtonE1 | References search button in HTML
+. recentCitySearch1E1  | References text for HTML display 
+. 
+.
+.
+.
+git push like this below -- 
+git push origin localStorage
 */
 
 
@@ -237,7 +292,9 @@ const getDataAndRender = function () {
         .then(function (pokeWeather) {
             let condition = [];
             let boostedTypes = [];
+
             elementTypes = "";
+
             
             //translates openweather weather conditions into the 7 weather types used by pokemon go
             for (i = 0; i < 8; i++) {
@@ -438,4 +495,5 @@ const getDataAndRender = function () {
        
        }
 }
+
 
