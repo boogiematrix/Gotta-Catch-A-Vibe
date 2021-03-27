@@ -1,3 +1,13 @@
+
+
+
+var recentCitySearch1E1 = $("#recentCitySearch1"); // The city blocks displayed in search history 
+var recentCitySearch2E1 = $("#recentCitySearch2");
+var recentCitySearch3E1 = $("#recentCitySearch3");
+var recentCitySearch4E1 = $("#recentCitySearch4");
+var recentCitySearch5E1 = $("#recentCitySearch5");
+var recentCitySearch6E1 = $("#recentCitySearch6");
+
 var searchSubmitButtonE1 = document.getElementById("searchSubmitButton");
 var recentCitySearch1E1 = document.getElementById("recentCitySearch1"); // The city blocks displayed in search history 
 let city = document.getElementById('searchInput');
@@ -9,22 +19,18 @@ const weatherApi = 'f7539453617679dd406d1369cc371b9e';
 
 
 
-var searchHistoryArray= [];
+
+var searchHistoryArray = [];
 var searchHistoryArrayIndex = 0;
 var searchButtonPresses = 0;
 
 
 searchSubmitButtonE1.addEventListener("click", function (event) {
     event.preventDefault();
-
-    //recentCitySearch1E1.textContent = city.value; // Displays to screen using what was typed into search bar
   
     getDataAndRender();
 
-
-
-    localStorage.setItem("searchInputStorage", city.value); 
-    //searchHistoryPopulate(city.value); // passes on the city name
+    searchHistoryPopulate(city.value); // passes on the city name
 
 })
 
@@ -36,37 +42,10 @@ if (!localStorage.getItem("searchInputStorage")) {
 function searchHistoryPopulate(cityName) {
     // triggered by search button press 
 
-    
-/*
-    searchHistoryArrayIndex += 1; // incriments index per push 
-    searchHistoryArray.push(cityName); // adds last city name to this array
-
-
-    
-    // displays to screen 
-    var searchHistoryListE1 = document.getElementById("searchHistoryList");
-    var newHeading = document.createElement("li");
-    
-    var idTag = "searchInput" + searchHistoryArrayIndex;
-        //var idTag = "searchInput" + searchHistoryArrayIndex;
-    
-    newHeading.setAttribute("id", idTag);
-    newHeading.innerText = cityName;
-    searchHistoryListE1.appendChild(newHeading);
-*/
-
-
-
-    // Create elements which display to the screen as bullet points
-    var searchHistoryListE1 = document.getElementById("searchHistoryList"); // id for the unorganized listed in html. The containder for the  
-    var newHeading = document.createElement("li"); // creates the bullet point which will contain a search input. 
-    var idTag = "searchInput" + searchHistoryArrayIndex; // creates the ID tag used in the display. ID incrments per iteration of this function
-
-
-    // Updates the searchHistoryArray values
-    //searchHistoryArray.unshift(cityName); // adds last city name to beginning of the array. 
-    //searchHistoryArrayLength = searchHistoryArray.length; 
-    //desiredArrayLength = 7;
+    //Updates the searchHistoryArray values
+    searchHistoryArray.unshift(cityName); // adds last city name to beginning of the array. 
+    searchHistoryArrayLength = searchHistoryArray.length; 
+    desiredArrayLength = 7;
 
     if (searchHistoryArrayLength >= desiredArrayLength) {
         // this happens when there are too many searches.
@@ -77,65 +56,27 @@ function searchHistoryPopulate(cityName) {
     }
     
 
+    // Displays to screen under Recent Search History
+    recentCitySearch1E1.text(searchHistoryArray[0]); // Displays to screen using what was typed into search bar. Appears in the search box with the green dashed borders
+    recentCitySearch2E1.text(searchHistoryArray[1]);
+    recentCitySearch3E1.text(searchHistoryArray[2]);
+    recentCitySearch4E1.text(searchHistoryArray[3]);
+    recentCitySearch5E1.text(searchHistoryArray[4]);
+    recentCitySearch6E1.text(searchHistoryArray[5]);
 
-    // creates and determines what elements will be displayed on screen.
-
-    /* this was working before
-
-
-    // creates and determines what elements will be displayed on screen. 
-
-    newHeading.setAttribute("id", idTag);
-    newHeading.innerText = cityName;
-    searchHistoryListE1.appendChild(newHeading);
-
-
-
-for(var i = 0; i < searchHistoryArrayIndex; i++) {
-        
-        
-        newHeading.setAttribute("id", idTag);
-        newHeading.innerText = searchHistoryArray[i]; // access the array and populates the required city
-        searchHistoryListE1.appendChild(newHeading);
-    }
-
-
-
-
-*/
-    
-    
-    // where you left off yesterday                 ---             - --    ----    ----
-
-
-
-    newHeading.setAttribute("id", idTag);
-    newHeading.innerText = searchHistoryArray; // access the array and populates the required city
-    searchHistoryListE1.appendChild(newHeading);
-    
-
- 
-    
      
 
     // sets to local storage
-    var storageLocal = "searchInputStorage" + searchHistoryArrayIndex;
-        // var storageLocal = "searchInputStorage" + searchHistoryArrayIndex;
-    //localStorage.setItem(storageLocal, cityName); // like declaring a new variable. 
-    //localStorage.setItem("searchInputStorage", cityName); // for the first text under search history 1
 
+    localStorage.setItem("searchInputStorage1", searchHistoryArray[0]); // for the first text under search history 1
+    localStorage.setItem("searchInputStorage2", searchHistoryArray[1]);
+    localStorage.setItem("searchInputStorage3", searchHistoryArray[2]);
+    localStorage.setItem("searchInputStorage4", searchHistoryArray[3]);
+    localStorage.setItem("searchInputStorage5", searchHistoryArray[4]);
+    localStorage.setItem("searchInputStorage6", searchHistoryArray[5]);
 
-    // debugging 
-    console.log(searchHistoryArray);
-    console.log("-- idTag & index " + idTag + " | getElement result " + newHeading.getAttribute("id"));
-    console.log("the storageLocal " + storageLocal);
-
-
-
-
-    // Once the dust settles
-    //recentCitySearch1E1.text(cityName); // Displays to screen using what was typed into search bar. Appears in the search box with the green dashed borders
     
+
     if (searchHistoryArrayLength < desiredArrayLength) {
         // triggers only if the current is less than a certain amount. 
 
@@ -143,65 +84,16 @@ for(var i = 0; i < searchHistoryArrayIndex; i++) {
     }
   
     
-    // debugging 
-    console.log("\n");
-    console.log(searchHistoryArray);
-    console.log("New Heading ID " + newHeading.getAttribute("id") + " | local storage name " + storageLocal + " | Current Array Index " + searchHistoryArrayIndex + " | array Length " + searchHistoryArrayLength);
-    
 
 } 
 
 
-$("#recentCitySearch1").text(localStorage.getItem("searchInputStorage"));
-
-
-
-
-/*      --          local storage          --      */
-
-
-// original 
-//localStorage.setItem("searchInputStorage", cityName); // like declaring a new variable.
-//$("#recentCitySearch1").text(localStorage.getItem("searchInputStorage"));
-
-//$(idTag).text(localStorage.getItem(storageLocal));
-//$(HTMLreference ID).text(localStorage.getItem(where it was stored))
-
-
-
-
-
-/* Variable Definition 
-
-. searchSubmitButtonE1 | References search button in HTML
-. recentCitySearch1E1  | References text for HTML display 
-. 
-.
-.
-.
-
-git push like this below -- 
-git push origin localStorage
-
-
-//$(idTag).text(localStorage.getItem(storageLocal));
-//$(HTMLreference ID).text(localStorage.getItem(where it was stored))
-
-
-
-
-
-
-/* Variable Definition 
-. searchSubmitButtonE1 | References search button in HTML
-. recentCitySearch1E1  | References text for HTML display 
-. 
-.
-.
-.
-git push like this below -- 
-git push origin localStorage
-*/
+$("#recentCitySearch1").text(localStorage.getItem("searchInputStorage1"));
+$("#recentCitySearch2").text(localStorage.getItem("searchInputStorage2"));
+$("#recentCitySearch3").text(localStorage.getItem("searchInputStorage3"));
+$("#recentCitySearch4").text(localStorage.getItem("searchInputStorage4"));
+$("#recentCitySearch5").text(localStorage.getItem("searchInputStorage5"));
+$("#recentCitySearch6").text(localStorage.getItem("searchInputStorage6"));
 
 
 //api call for the longitude and latitude
@@ -476,8 +368,6 @@ const getDataAndRender = function () {
            
                
            }
-
-
 
        
        }
