@@ -5,20 +5,8 @@ let cityGeocodeJson;
 let hourlyJson;
 
 
-var searchSubmitButtonE1 = document.getElementById("searchSubmitButton");
-var recentCitySearch1E1 = document.getElementById("recentCitySearch1"); // The city blocks displayed in search history 
-let city = document.getElementById('searchInput');
-let cityGeocodeJson;
-let hourlyJson;
-
-
 const weatherApi = 'f7539453617679dd406d1369cc371b9e';
 
-
-var searchHistoryArray= [];
-var searchHistoryArrayIndex = 0;
-
-const weatherApi = 'f7539453617679dd406d1369cc371b9e';
 
 
 var searchHistoryArray= [];
@@ -29,23 +17,22 @@ var searchButtonPresses = 0;
 searchSubmitButtonE1.addEventListener("click", function (event) {
     event.preventDefault();
 
-
-    searchHistoryPopulate(city.value); // passes on the city name
-
+    //recentCitySearch1E1.textContent = city.value; // Displays to screen using what was typed into search bar
   
     getDataAndRender();
 
-    recentCitySearch1E1.textContent = city.value; // Displays to screen using what was typed into search bar
 
 
     localStorage.setItem("searchInputStorage", city.value); 
-    searchHistoryPopulate(city.value); // passes on the city name
+    //searchHistoryPopulate(city.value); // passes on the city name
 
 })
 
-
-recentCitySearch1E1.textContent = localStorage.getItem("searchInputStorage");
-
+if (!localStorage.getItem("searchInputStorage")) {
+    recentCitySearch1E1.textContent = localStorage.getItem("searchInputStorage");
+}
+    
+   
 function searchHistoryPopulate(cityName) {
     // triggered by search button press 
 
@@ -77,9 +64,9 @@ function searchHistoryPopulate(cityName) {
 
 
     // Updates the searchHistoryArray values
-    searchHistoryArray.unshift(cityName); // adds last city name to beginning of the array. 
-    searchHistoryArrayLength = searchHistoryArray.length; 
-    desiredArrayLength = 7;
+    //searchHistoryArray.unshift(cityName); // adds last city name to beginning of the array. 
+    //searchHistoryArrayLength = searchHistoryArray.length; 
+    //desiredArrayLength = 7;
 
     if (searchHistoryArrayLength >= desiredArrayLength) {
         // this happens when there are too many searches.
@@ -134,8 +121,8 @@ for(var i = 0; i < searchHistoryArrayIndex; i++) {
     // sets to local storage
     var storageLocal = "searchInputStorage" + searchHistoryArrayIndex;
         // var storageLocal = "searchInputStorage" + searchHistoryArrayIndex;
-    localStorage.setItem(storageLocal, cityName); // like declaring a new variable. 
-    localStorage.setItem("searchInputStorage", cityName); // for the first text under search history 1
+    //localStorage.setItem(storageLocal, cityName); // like declaring a new variable. 
+    //localStorage.setItem("searchInputStorage", cityName); // for the first text under search history 1
 
 
     // debugging 
@@ -147,7 +134,7 @@ for(var i = 0; i < searchHistoryArrayIndex; i++) {
 
 
     // Once the dust settles
-    recentCitySearch1E1.text(cityName); // Displays to screen using what was typed into search bar. Appears in the search box with the green dashed borders
+    //recentCitySearch1E1.text(cityName); // Displays to screen using what was typed into search bar. Appears in the search box with the green dashed borders
     
     if (searchHistoryArrayLength < desiredArrayLength) {
         // triggers only if the current is less than a certain amount. 
@@ -162,7 +149,7 @@ for(var i = 0; i < searchHistoryArrayIndex; i++) {
     console.log("New Heading ID " + newHeading.getAttribute("id") + " | local storage name " + storageLocal + " | Current Array Index " + searchHistoryArrayIndex + " | array Length " + searchHistoryArrayLength);
     
 
-}
+} 
 
 
 $("#recentCitySearch1").text(localStorage.getItem("searchInputStorage"));
@@ -334,7 +321,7 @@ const getDataAndRender = function () {
             for (let i = 0; i < condition.length; i++) {
                 boostedTypes.push(weatherBoosters[condition[i]])
             }
-            console.log(boostedTypes[0])
+            console.log(boostedTypes)
            displayMainCard(pokeWeather,boostedTypes);
            displayDaycard(pokeWeather,boostedTypes);
            displayHourCard(pokeWeather,boostedTypes);
