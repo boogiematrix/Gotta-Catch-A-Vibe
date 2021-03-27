@@ -5,6 +5,9 @@ let cityGeocodeJson;
 let hourlyJson;
 var mainCardsDiv = document.querySelector(".mainCard");
 var dayCardsDiv = document.querySelector(".dayCard");
+var hourlyCardsDiv = document.querySelector(".hourlyCards");
+
+
 
 const weatherApi = 'f7539453617679dd406d1369cc371b9e';
 
@@ -24,15 +27,15 @@ searchSubmitButtonE1.addEventListener("click", function (event) {
 
 
 
-    localStorage.setItem("searchInputStorage", city.value); 
-    //searchHistoryPopulate(city.value); // passes on the city name
+    //localStorage.setItem("searchInputStorage", city.value); 
+    searchHistoryPopulate(city.value); // passes on the city name
 
 })
 
 if (!localStorage.getItem("searchInputStorage")) {
     recentCitySearch1E1.textContent = localStorage.getItem("searchInputStorage");
 }
-    
+
    
 function searchHistoryPopulate(cityName) {
     // triggered by search button press 
@@ -81,14 +84,14 @@ function searchHistoryPopulate(cityName) {
 
     // creates and determines what elements will be displayed on screen.
 
-    /* this was working before
+     //this was working before
 
 
     // creates and determines what elements will be displayed on screen. 
 
-    newHeading.setAttribute("id", idTag);
-    newHeading.innerText = cityName;
-    searchHistoryListE1.appendChild(newHeading);
+    //newHeading.setAttribute("id", idTag);
+    //newHeading.innerText = cityName;
+    //searchHistoryListE1.appendChild(newHeading);
 
 
 
@@ -103,7 +106,7 @@ for(var i = 0; i < searchHistoryArrayIndex; i++) {
 
 
 
-*/
+
     
     
     // where you left off yesterday                 ---             - --    ----    ----
@@ -153,7 +156,7 @@ for(var i = 0; i < searchHistoryArrayIndex; i++) {
 } 
 
 
-$("#recentCitySearch1").text(localStorage.getItem("searchInputStorage"));
+//$("#recentCitySearch1").text(localStorage.getItem("searchInputStorage"));
 
 
 
@@ -183,27 +186,7 @@ $("#recentCitySearch1").text(localStorage.getItem("searchInputStorage"));
 
 git push like this below -- 
 git push origin localStorage
-
-
-//$(idTag).text(localStorage.getItem(storageLocal));
-//$(HTMLreference ID).text(localStorage.getItem(where it was stored))
-
-
-
-
-
-
-/* Variable Definition 
-. searchSubmitButtonE1 | References search button in HTML
-. recentCitySearch1E1  | References text for HTML display 
-. 
-.
-.
-.
-git push like this below -- 
-git push origin localStorage
 */
-
 
 //api call for the longitude and latitude
 const geocode = async () => {
@@ -237,9 +220,7 @@ const hourlyWeather = async () => {
     catch (error) { console.log(error) }
 };
 
-//const pokeTypeApi = async (pokeapiUrl) => {
-//}
-
+//gets a random pokemon of a random type that is boosted at that hour
 const pokemonOfAType = async (boostedTypes) => {
     let backgroundpokemontype = [];
     let backgroundPokemon = [];
@@ -248,13 +229,12 @@ const pokemonOfAType = async (boostedTypes) => {
     }
     for (i = 0; i < backgroundpokemontype.length; i++) {
         let pokeApiUrl = `https://pokeapi.co/api/v2/type/${backgroundpokemontype[i].toLowerCase()}`;
-        //pokeTypeApi()
         try {
             let response = await fetch(pokeApiUrl);
             if (response.ok) {
                 pokeTypeApiJson = await response.json();
                 console.log(pokeTypeApiJson)
-                backgroundPokemon.push(pokeTypeApiJson.pokemon[0].pokemon.name)
+                backgroundPokemon.push(pokeTypeApiJson.pokemon[Math.floor(Math.random() * pokeTypeApiJson.pokemon.length)].pokemon.name)
             }
         }
         catch (error) { console.log(error) }
@@ -264,7 +244,7 @@ const pokemonOfAType = async (boostedTypes) => {
     console.log(backgroundPokemon)
     return backgroundPokemon
 }
-
+//gets a pokemon image from the api
 const pokemonSprites = async (backgroundPokemon) => {
     let pokemonImages = [];
     for (i = 0; i < backgroundPokemon.length; i++) {
@@ -274,37 +254,26 @@ const pokemonSprites = async (backgroundPokemon) => {
             if (response.ok) {
                 pokeImageApiJson = await response.json();
                 console.log(pokeImageApiJson)
-                pokemonImages.push(pokeImageApiJson.sprites.other.dream_world.front_default)
+                if (pokeImageApiJson.sprites.other.dream_world.front_default) {
+                    pokemonImages.push(pokeImageApiJson.sprites.other["official-artwork"].front_default)
+                } else {
+                    pokemonImages.push(pokeImageApiJson.sprites.front_default)
+                }
             }
         }
         catch (error) { console.log(error) }
     }
     console.log(pokemonImages)
     
-    
-    mainCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[0]}); background-repeat: no-repeat`);
+    //sets the background pokemon image for each hour
+    mainCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[0]}); background-repeat: no-repeat; background-size: 100%; background-position: bottom`);
+    for (i = 1; i < backgroundPokemon.length - 1; i++) {
+        hourCardBackground = document.getElementById(`hour${i}`);
+        hourCardBackground.setAttribute('style', `background-image: url(${pokemonImages[i]}); background-repeat: no-repeat; background-size: 100%; background-position: bottom;`)
+    }
+    dayCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[8]}); background-repeat: no-repeat; background-size: 100%; background-position: bottom`)
     return pokemonImages
 }
-const pokemonTypes = [
-    "Grass",
-    "Ground",
-    "Fire",
-    "Dark",
-    "Ghost",
-    "Fairy",
-    "Fighting",
-    "Poison",
-    "Normal",
-    "Rock",
-    "Water",
-    "Electric",
-    "Bug",
-    "Ice",
-    "Steel",
-    "Dragon",
-    "Flying",
-    "Psychic"
-]
 
 //data from pokemon go api weather that boosts pokemon types
 const weatherBoosters = {
@@ -354,7 +323,10 @@ const getDataAndRender = function () {
 
             
             //translates openweather weather conditions into the 7 weather types used by pokemon go
-            for (i = 0; i < 8; i++) {
+            for (i = 0; i < 24; i++) {
+                if (i > 7 && i < 23) {
+                    continue;
+                }
                 let weatherId = pokeWeather.hourly[i].weather[0].id;
                 let main = pokeWeather.hourly[i].weather[0].main
                 if (main === 'Rain' || main === 'Drizzle' || main === 'Thunderstorm') {
@@ -444,8 +416,8 @@ const getDataAndRender = function () {
             conditionsEL.textContent = PokeWeather.hourly[0].weather[0].main;
             theTypesEl.textContent = typesOb[0];
             //console.log(pokeWeather[0].main);
-            mainCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
-    
+            //mainCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
+            mainCardsDiv.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 focus:scale-110')
     
           // console.log(currentDate,currentTime, duration);
           mainCardsDiv.append(dateEl,timeSlotEl,conditionsEL,weatherIconEl,tempEl, theTypesEl);
@@ -462,10 +434,6 @@ const getDataAndRender = function () {
 
             var currentDate = moment();
           var nextDay =  currentDate.add('1', 'days');
-           // var duration = moment.duration(8,"hours");
-            //var numberOfHours = currentTime.add(duration);
-           // var stamp = pokeWeather[0].hourly[0].dt * 1000;
-           // var newTime = stamp.getHours();
             
             //Creating the html elements  
             var dateEl = document.createElement("h2");
@@ -490,8 +458,8 @@ const getDataAndRender = function () {
             conditionsEL.textContent = pokeW.hourly[47].weather[0].main;
             theTypesEl.textContent = typesO[0].value;
             //console.log(pokeWeather[0].main);
-            dayCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
-    
+            //dayCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
+           dayCardsDiv.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 focus:scale-110')
     
           // console.log(currentDate,currentTime, duration);
           dayCardsDiv.append(dateEl,conditionsEL,weatherIconEl,tempEl);
@@ -501,23 +469,17 @@ const getDataAndRender = function () {
        
        function displayHourCard(poki,boss)
        {
-           for (var i = 0; i < 6; i++) {
+           for (var i = 1; i < 8; i++) {
                      //connecting to weatherCards dive
-        var hourlyCardsDiv = document.querySelector(".hourlyCards");
-  
+        //var hourlyCardsDiv = document.querySelector(".hourlyCards");
+            let hourCard = document.getElementById(`hour${i}`)
     
         //displays for times and dates
            var currentTime = moment();
-           currentTime.add("1","hours");
+           //currentTime.add("1","hours");
            var newtime = currentTime.add(i,'hours');
            newtime.format("LT");
 
-            var currentDate = moment();
-          //var nextDay =  currentDate.add('1', 'days');
-           // var duration = moment.duration(8,"hours");
-            //var numberOfHours = currentTime.add(duration);
-           // var stamp = pokeWeather[0].hourly[0].dt * 1000;
-           // var newTime = stamp.getHours();
             
             //Creating the html elements  
            // var dateEl = document.createElement("h2");
@@ -542,17 +504,12 @@ const getDataAndRender = function () {
             conditionsEL.textContent = poki.hourly[i].weather[0].main;
             theTypesEl.textContent = boss[i];
             //console.log(pokeWeather[0].main);
-            hourlyCardsDiv.setAttribute("style","border:3px solid black; width:50%;height:50%; display:flex; justify-content: space-between")
-    
+            //hourCard.setAttribute("style","border:3px solid black; width:50%;height:50%; display:flex; justify-content: space-between")
+            hourCard.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 hover:scale-110 font-semibold')
           // console.log(currentDate,currentTime, duration);
-          hourlyCardsDiv.append(timeSlotEl,conditionsEL,weatherIconEl,tempEl,theTypesEl);
-
-           
-               
+          hourCard.append(timeSlotEl,conditionsEL,weatherIconEl,tempEl,theTypesEl);
+   
            }
-
-
-
        
        }
 }
