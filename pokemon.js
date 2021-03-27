@@ -15,7 +15,9 @@ var searchHistoryArrayIndex = 0;
 searchSubmitButtonE1.addEventListener("click", function (event) {
     event.preventDefault();
 
-    //searchHistoryPopulate(citySearchBoxText); // passes on the city name
+
+    searchHistoryPopulate(city.value); // passes on the city name
+
   
     getDataAndRender();
 
