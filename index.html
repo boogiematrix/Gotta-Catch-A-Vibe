@@ -6,8 +6,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
+
     <link rel="stylesheet" href="./style.css">
 
     <title>Gotta catch a Vibe</title>
@@ -18,24 +20,37 @@
         <h1> Gotta Catcha a Vibe </h1>
         <h2> local storage test </h2>
     </header>
-    
-    
-    <div id = "seachForaCitySectionID">
+
+
+    <div id="seachForaCitySectionID">
         <!-- Displays the search bar and some applicable cities -->
 
-        <form id = "searchBarID"> <!-- action="/action_page.php" -->
-            <label for = "search"> Search for a City: </label> <br>
-            <input type="text" id = "searchInput" placeholder="Search.." name="search">
-            <button type="submit" id = "searchSubmitButton"> <i class="fas fa-search-location"></i> </button> <!-- Icon from font awesome -->
+        <form id="searchBarID">
+            <!-- action="/action_page.php" -->
+            <label for="search"> Search for a City: </label> <br>
+            <input type="text" id="searchInput" placeholder="Search.." name="search">
+            <button type="submit" id="searchSubmitButton"> <i class="fas fa-search-location"></i> </button>
+            <!-- Icon from font awesome -->
         </form>
 
-        <div id = "citySearchHistory">
+        <div id="citySearchHistory">
             <!-- Local Storage used Here -->
             <H3> Recent Search History </H3>
 
-            <div class = "searchHistoryCityBlock">
-                <p id = "recentCitySearch1"> Search History 1 </p>
+            <div class="searchHistoryCityBlock">
+                <p id="recentCitySearch1"> Search History 1 </p>
             </div>
+
+
+            <div class="searchHistoryCityBlock">
+                <p> Search History 2 </p>
+            </div>
+
+            <div class="searchHistoryCityBlock">
+                <p> Minneapolis, MN </p>
+            </div>
+
+
 
             <ul id = "searchHistoryList">
                 <!-- This is where the search history appears -->
@@ -46,10 +61,27 @@
         </div>
 
     </div>
+       <!--Weather cards will be displayed here-->
+<div class ="mainCard">
+    <!-- displays Main cards-->
+    
+</div>
+
+<div class="hourlyCards">
+<!-- displays six  hour cards-->
+</div>
+
+<div class="dayCard">
+    <!-- displays Day   cards-->
+</div>
+
+<!--added script tag for the current date to moment.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./pokemon.js"></script>
+
 </body>
 
 
