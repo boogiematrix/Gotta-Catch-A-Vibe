@@ -301,9 +301,9 @@ const pokemonTypes = [
     "Bug",
     "Ice",
     "Steel",
-           "Dragon",
-        "Flying",
-        "Psychic"
+    "Dragon",
+    "Flying",
+    "Psychic"
 ]
 
 //data from pokemon go api weather that boosts pokemon types
@@ -395,12 +395,7 @@ const getDataAndRender = function () {
             console.log(boostedTypes)
             pokemonOfAType(boostedTypes)
                 .then(pokemonSprites)
-            
-                //.then(function () {
-                  //  return Promise.all(displayMainCard(pokeWeather, boostedTypes),
-                    //displayDaycard(pokeWeather, boostedTypes),
-                    //displayHourCard(pokeWeather, boostedTypes))
-            //})
+
             displayMainCard(pokeWeather, boostedTypes);
             displayDaycard(pokeWeather, boostedTypes);
             displayHourCard(pokeWeather, boostedTypes);
@@ -409,8 +404,6 @@ const getDataAndRender = function () {
            return boostedTypes
 
         })
-        //.then(pokemonOfAType)
-    //.then(pokemonSprites)
 
         
 
