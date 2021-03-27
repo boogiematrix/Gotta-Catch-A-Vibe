@@ -7,10 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="public/style.css">
+
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="./style.css">
+
 
     <title>Gotta Catch a Vibe</title>
 </head>
@@ -37,10 +39,17 @@
 
     <div class="container mx-auto ring-4 ring-gray-900 p-6 bg-gray-100 shadow-inner-xl flex">
 
+
         <!--City Information Bar-->
         <div class="">
             <div id="seachForaCitySectionID">
          <!-- Displays the search bar and some applicable cities -->
+
+
+            <div class="searchHistoryCityBlock">
+                <p> Search History 2 </p>
+            </div>
+
 
                 <form id="searchBarID">
             <!-- action="/action_page.php" -->
@@ -73,6 +82,7 @@
                 </div>
                 
             </div>
+
         
             </div> 
 <!--Card Layout-->
@@ -131,6 +141,36 @@
 
     </div>
 </div>
+
+
+
+
+            <ul id = "searchHistoryList">
+                <!-- This is where the search history appears -->
+
+            </ul> 
+
+
+        </div>
+
+    </div>
+       <!--Weather cards will be displayed here-->
+<div class ="mainCard">
+    <!-- displays Main cards-->
+    
+</div>
+
+<div class="hourlyCards">
+<!-- displays six  hour cards-->
+</div>
+
+<div class="dayCard">
+    <!-- displays Day   cards-->
+</div>
+
+<!--added script tag for the current date to moment.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
