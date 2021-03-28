@@ -37,19 +37,13 @@
         <h3 class="text-lg md:text-3xl"> Harness the Power of the Weather to Make the Most of Type Advantages! </h3>
     </div>
 
+    
+    
     <div class="container mx-auto ring-4 ring-gray-900 p-6 bg-gray-100 shadow-inner-xl flex">
-
-
         <!--City Information Bar-->
         <div class="">
             <div id="seachForaCitySectionID">
          <!-- Displays the search bar and some applicable cities -->
-
-
-            <div class="searchHistoryCityBlock">
-                <p> Search History 2 </p>
-            </div>
-
 
                 <form id="searchBarID">
             <!-- action="/action_page.php" -->
@@ -66,21 +60,22 @@
                     <div class="searchHistoryCityBlock">
                         <p class="font-semibold"> Search History 1 </p>
                     </div>
-
+                    
                     <div class="searchHistoryCityBlock">
                         <p class="ring-2 ring-gray-900 bg-white w-40"> Minneapolis, MN </p>
                     </div>
-
+                    
                     <div class="searchHistoryCityBlock">
                         <p class="font-semibold"> Search History 2 </p>
                     </div>
 
 
-        <div id = "citySearchHistory">
+
+               <div id = "citySearchHistory">
             <!-- Local Storage used Here -->
             <!-- This is where the search history appears -->
 
-            <H3> Recent Search History </H3>
+                   <H3> Recent Search History </H3>
 
 
                 </div>
@@ -92,70 +87,10 @@
                 <p class="ring-2 ring-gray-900 bg-white w-40" id = "recentCitySearch2">  </p>
             </div>
 
-        
-            </div> 
-<!--Card Layout-->
-<div class="flex-auto justify-between self-center">
-    <div class="flex-initial place-items-auto">
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 focus:scale-110">
-            <p class="font-semibold">Now</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
-            <p class="font-semibold">In 1 Hour</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
-            <p class="font-semibold">In 2 Hours</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
-            <p class="font-semibold">In 3 Hours</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
-            <p class="font-semibold">In 4 Hours</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
-            <p class="font-semibold">In 5 Hours</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
-            <p class="font-semibold">In 6 Hours</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
-            <p class="font-semibold">In 7 Hours</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
-            <p class="font-semibold">In 8 Hours</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-        <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
-            <p class="font-semibold">Tomorrow</p>
-            <img src="public/images/overcast.png" alt="Wind Icon">
-            <p>Powered Up Moves:</p>
-        </div>
-
-    </div>
-</div>
-
-
-
 
             <ul id = "searchHistoryList">
                 <!-- This is where the search history appears -->
+
 
 
             <div class = "searchHistoryCityBlock">
@@ -173,38 +108,106 @@
             <div class = "searchHistoryCityBlock">
                 <p id = "recentCitySearch6">  </p>
             </div>
-
+          </ul>
+        
+            </div> 
+<!--Card Layout-->
+<div class="flex-auto justify-between self-center">
+    <div class="flex-initial place-items-auto">
+        <div class ="mainCard">
+            <!-- displays Main cards-->
+            
         </div>
-
+        
+        <div class="hourlyCards">
+            <div id='hour1'></div>
+            <div id='hour2'></div>
+            <div id='hour3'></div>
+            <div id='hour4'></div>
+            <div id='hour5'></div>
+            <div id='hour6'></div>
+            <div id='hour7'></div>
+            <!-- displays six  hour cards-->
+        </div>
+        
+        <div class="dayCard">
+            <!-- displays Day   cards-->
+        </div>
+        
     </div>
-       <!--Weather cards will be displayed here-->
-<div class ="mainCard">
-    <!-- displays Main cards-->
-    
 </div>
 
-<div class="hourlyCards">
-<!-- displays six  hour cards-->
 </div>
 
-<div class="dayCard">
-    <!-- displays Day   cards-->
 </div>
+
 
 <!--added script tag for the current date to moment.js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="./pokemon.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./pokemon.js"></script>
 
 </body>
 
 
 </html>
+<!--
 
-
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 focus:scale-110">
+        <p class="font-semibold">Now</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
+        <p class="font-semibold">In 1 Hour</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
+        <p class="font-semibold">In 2 Hours</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
+        <p class="font-semibold">In 3 Hours</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
+        <p class="font-semibold">In 4 Hours</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
+        <p class="font-semibold">In 5 Hours</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
+        <p class="font-semibold">In 6 Hours</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
+        <p class="font-semibold">In 7 Hours</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
+        <p class="font-semibold">In 8 Hours</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    <div class="container ring-2 ring-gray-900 h-60 w-40 mx-4 hover:scale-110">
+        <p class="font-semibold">Tomorrow</p>
+        <img src="public/images/overcast.png" alt="Wind Icon">
+        <p>Powered Up Moves:</p>
+    </div>
+    
+-->
 
 
 
