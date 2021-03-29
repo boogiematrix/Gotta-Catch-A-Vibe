@@ -38,9 +38,9 @@ searchSubmitButtonE1.addEventListener("click", function (event) {
 
 })
 
-if (!localStorage.getItem("searchInputStorage")) {
-    recentCitySearch1E1.textContent = localStorage.getItem("searchInputStorage");
-}
+//if (!localStorage.getItem("searchInputStorage")) {
+//    recentCitySearch1E1.textContent = localStorage.getItem("searchInputStorage");
+//}
 
    
 function searchHistoryPopulate(cityName) {
@@ -373,7 +373,7 @@ const getDataAndRender = function () {
             weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ pokeW.hourly[47].weather[0].icon + ".png");
             tempEl.textContent ="Temp: " + ftemp;
             conditionsEL.textContent = pokeW.hourly[47].weather[0].main;
-            theTypesEl.textContent = typesO[9].value;
+            theTypesEl.textContent = typesO[8];
             //console.log(pokeWeather[0].main);
             //dayCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
            dayCardsDiv.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 focus:scale-110')
