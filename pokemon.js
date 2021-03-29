@@ -9,7 +9,6 @@ var recentCitySearch5E1 = $("#recentCitySearch5");
 var recentCitySearch6E1 = $("#recentCitySearch6");
 
 var searchSubmitButtonE1 = document.getElementById("searchSubmitButton");
-var recentCitySearch1E1 = document.getElementById("recentCitySearch1"); // The city blocks displayed in search history 
 let city = document.getElementById('searchInput');
 let cityGeocodeJson;
 let hourlyJson;
@@ -43,8 +42,10 @@ searchSubmitButtonE1.addEventListener("click", function (event) {
    
 function searchHistoryPopulate(cityName) {
     // triggered by search button press 
+    
 
-    //Updates the searchHistoryArray values
+
+    // Updates the searchHistoryArray values
     searchHistoryArray.unshift(cityName); // adds last city name to beginning of the array. 
     searchHistoryArrayLength = searchHistoryArray.length; 
     desiredArrayLength = 7;
@@ -57,24 +58,23 @@ function searchHistoryPopulate(cityName) {
         // index will always be one below the current array length
     }
     
-
+    console.log("search history array " + searchHistoryArray);
     // Displays to screen under Recent Search History
     recentCitySearch1E1.text(searchHistoryArray[0]); // Displays to screen using what was typed into search bar. Appears in the search box with the green dashed borders
     recentCitySearch2E1.text(searchHistoryArray[1]);
     recentCitySearch3E1.text(searchHistoryArray[2]);
     recentCitySearch4E1.text(searchHistoryArray[3]);
     recentCitySearch5E1.text(searchHistoryArray[4]);
-    recentCitySearch6E1.text(searchHistoryArray[5]);     
+    recentCitySearch6E1.text(searchHistoryArray[5]);
 
+     
     // sets to local storage
-
     localStorage.setItem("searchInputStorage1", searchHistoryArray[0]); // for the first text under search history 1
     localStorage.setItem("searchInputStorage2", searchHistoryArray[1]);
     localStorage.setItem("searchInputStorage3", searchHistoryArray[2]);
     localStorage.setItem("searchInputStorage4", searchHistoryArray[3]);
     localStorage.setItem("searchInputStorage5", searchHistoryArray[4]);
-    localStorage.setItem("searchInputStorage6", searchHistoryArray[5]);
-
+    localStorage.setItem("searchInputStorage6", searchHistoryArray[5]); // for the last text under search history 6
     
 
     if (searchHistoryArrayLength < desiredArrayLength) {
@@ -83,8 +83,10 @@ function searchHistoryPopulate(cityName) {
         searchHistoryArrayIndex += 1; // incriments index per push.  
     }
   
-    
-
+    // debugging 
+    console.log("\n");
+    console.log(searchHistoryArray);
+    console.log("Current Array Index " + searchHistoryArrayIndex + " | array Length " + searchHistoryArrayLength);
 } 
 
 

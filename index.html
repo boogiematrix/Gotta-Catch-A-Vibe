@@ -41,76 +41,65 @@
     
     <div class="container mx-auto ring-4 ring-gray-900 p-6 bg-gray-100 shadow-inner-xl flex">
         <!--City Information Bar-->
-        <div class="">
+        <div > <!-- class="" -->
             <div id="seachForaCitySectionID">
-         <!-- Displays the search bar and some applicable cities -->
+                <!-- Displays the search bar and some applicable cities -->
 
                 <form id="searchBarID">
-            <!-- action="/action_page.php" -->
+                    <!-- action="/action_page.php" -->
                     <label class="font-semibold" for="search"> Search for a City: </label> <br>
                      <input type="text" id="searchInput" placeholder="Search..." name="search" class="ring-2 ring-gray-900 w-40 focus:ring-blue-400 focus:ring-3">
                      <button type="submit" id="searchSubmitButton"> <i class="fas fa-search-location hover:text-gray-400"></i> </button>
-             <!-- Icon from font awesome -->
+                    <!-- Icon from font awesome -->
                  </form>
 
                 <div id="citySearchHistory">
-             <!-- Local Storage used Here -->
-                     <H3  class="font-semibold"> Recent Search History </H3>
+                    <!-- Local Storage used Here -->
+                    <H3  class="font-semibold"> Recent Search History </H3>
 
                     <div class="searchHistoryCityBlock">
-                        <p class="font-semibold"> Search History 1 </p>
+                        <p id = "recentCitySearch1" class="font-semibold"> </p>
                     </div>
                     
                     <div class="searchHistoryCityBlock">
-                        <p class="ring-2 ring-gray-900 bg-white w-40"> Minneapolis, MN </p>
-                    </div>
-                    
-                    <div class="searchHistoryCityBlock">
-                        <p class="font-semibold"> Search History 2 </p>
+                        <p id = "recentCitySearch2" class="font-semibold"> </p>
                     </div>
 
-
-
-               <div id = "citySearchHistory">
-            <!-- Local Storage used Here -->
-            <!-- This is where the search history appears -->
-
-                   <H3> Recent Search History </H3>
+                    <div class = "searchHistoryCityBlock">
+                        <p id = "recentCitySearch3" class="font-semibold">  </p>
+                    </div>
+        
+                    <div class = "searchHistoryCityBlock">
+                        <p id = "recentCitySearch4" class="font-semibold">  </p>
+                    </div>
+        
+                    <div class = "searchHistoryCityBlock">
+                        <p id = "recentCitySearch5" class="font-semibold">  </p>
+                    </div>
+        
+                    <div class = "searchHistoryCityBlock">
+                        <p id = "recentCitySearch6" class="font-semibold">  </p>
+                    </div>
 
 
                 </div>
+
+
+                    
+
+               
                 
             </div>
 
-
-            <div class = "searchHistoryCityBlock">
-                <p class="ring-2 ring-gray-900 bg-white w-40" id = "recentCitySearch2">  </p>
-            </div>
-
-
-            <ul id = "searchHistoryList">
-                <!-- This is where the search history appears -->
+        </div>
 
 
 
-            <div class = "searchHistoryCityBlock">
-                <p id = "recentCitySearch3">  </p>
-            </div>
 
-            <div class = "searchHistoryCityBlock">
-                <p id = "recentCitySearch4">  </p>
-            </div>
-
-            <div class = "searchHistoryCityBlock">
-                <p id = "recentCitySearch5">  </p>
-            </div>
-
-            <div class = "searchHistoryCityBlock">
-                <p id = "recentCitySearch6">  </p>
-            </div>
-          </ul>
         
-            </div> 
+    
+
+
 <!--Card Layout-->
 <div class="flex-auto justify-between self-center">
     <div class="flex-initial place-items-auto">
@@ -141,6 +130,7 @@
 
 </div>
 
+    </div>
 
 <!--added script tag for the current date to moment.js-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
