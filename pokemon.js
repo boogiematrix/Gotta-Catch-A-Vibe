@@ -325,7 +325,7 @@ const getDataAndRender = function () {
             weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ PokeWeather.hourly[0].weather[0].icon + ".png");
             tempEl.textContent ="Temp: " + ftemp;
             conditionsEL.textContent = PokeWeather.hourly[0].weather[0].main;
-            theTypesEl.textContent = typesOb[0];
+            theTypesEl.textContent = typesOb[0].join(", ");
             //console.log(pokeWeather[0].main);
             //mainCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
             mainCardsDiv.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 focus:scale-110')
@@ -338,6 +338,7 @@ const getDataAndRender = function () {
        function displayDaycard(pokeW,typesO){
               //connecting to weatherCards dive
         var dayCardsDiv = document.querySelector(".dayCard");
+
   
     
         //displays for times and dates
@@ -361,19 +362,19 @@ const getDataAndRender = function () {
     
             //Setting the html elements for the first card EX
             dateEl.textContent = nextDay.format("LL");
-            var ftemp = Math.floor((pokeW.hourly[47].temp -273.15) * 1.8 +32);
+            var ftemp = Math.floor((pokeW.hourly[23].temp -273.15) * 1.8 +32);
             timeSlotEl.textContent = currentTime;
     
-            weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ pokeW.hourly[47].weather[0].icon + ".png");
+            weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ pokeW.hourly[23].weather[0].icon + ".png");
             tempEl.textContent ="Temp: " + ftemp;
-            conditionsEL.textContent = pokeW.hourly[47].weather[0].main;
-            theTypesEl.textContent = typesO[0].value;
+            conditionsEL.textContent = pokeW.hourly[23].weather[0].main;
+            theTypesEl.textContent = typesO[8].join(", ");
             //console.log(pokeWeather[0].main);
             //dayCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
            dayCardsDiv.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 focus:scale-110')
     
           // console.log(currentDate,currentTime, duration);
-          dayCardsDiv.append(dateEl,conditionsEL,weatherIconEl,tempEl);
+          dayCardsDiv.append(dateEl,conditionsEL,weatherIconEl,tempEl,theTypesEl);
 
 
        }
@@ -413,7 +414,7 @@ const getDataAndRender = function () {
             weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ poki.hourly[i].weather[0].icon + ".png");
             tempEl.textContent ="Temp: " + ftemp;
             conditionsEL.textContent = poki.hourly[i].weather[0].main;
-            theTypesEl.textContent = boss[i];
+            theTypesEl.textContent = boss[i].join(", ");
             //console.log(pokeWeather[0].main);
             //hourCard.setAttribute("style","border:3px solid black; width:50%;height:50%; display:flex; justify-content: space-between")
             hourCard.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 hover:scale-110 font-semibold')
