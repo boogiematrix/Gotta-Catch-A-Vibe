@@ -38,9 +38,7 @@ searchSubmitButtonE1.addEventListener("click", function (event) {
 
 })
 
-//if (!localStorage.getItem("searchInputStorage")) {
-//    recentCitySearch1E1.textContent = localStorage.getItem("searchInputStorage");
-//}
+
 
    
 function searchHistoryPopulate(cityName) {
