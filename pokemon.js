@@ -298,8 +298,8 @@ const getDataAndRender = function () {
 
        function displayMainCard(PokeWeather, typesOb){
            
-     //connecting to weatherCards dive
-        //var mainCardsDiv = document.querySelector(".mainCard");
+     //connecting to weatherCards div
+        var mainCardsDiv = document.querySelector(".mainCard");
   
     
         //displays for times and dates
@@ -326,7 +326,7 @@ const getDataAndRender = function () {
             //Setting the html elements for the first card EX
             dateEl.textContent = currentDate;
             var ftemp = Math.floor((PokeWeather.hourly[0].temp -273.15) * 1.8 +32);
-            timeSlotEl.textContent = currentTime;
+            timeSlotEl.textContent = "Now";
     
             weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ PokeWeather.hourly[0].weather[0].icon + ".png");
             tempEl.textContent ="Temp: " + ftemp;
