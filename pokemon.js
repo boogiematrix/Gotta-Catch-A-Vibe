@@ -177,12 +177,12 @@ const pokemonSprites = async (backgroundPokemon) => {
     console.log(pokemonImages)
     
     //sets the background pokemon image for each hour
-    mainCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[0]}); background-repeat: no-repeat; background-size: 100%; background-position: bottom`);
+    mainCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[0]}); background-repeat: no-repeat; background-size: 75%; background-position: bottom`);
     for (i = 1; i < backgroundPokemon.length - 1; i++) {
         hourCardBackground = document.getElementById(`hour${i}`);
-        hourCardBackground.setAttribute('style', `background-image: url(${pokemonImages[i]}); background-repeat: no-repeat; background-size: 100%; background-position: bottom;`)
+        hourCardBackground.setAttribute('style', `background-image: url(${pokemonImages[i]}); background-repeat: no-repeat; background-size: 75%; background-position: bottom;`)
     }
-    dayCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[8]}); background-repeat: no-repeat; background-size: 100%; background-position: bottom`)
+    dayCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[8]}); background-repeat: no-repeat; background-size: 75%; background-position: bottom`)
     return pokemonImages
 }
 
@@ -334,10 +334,10 @@ const getDataAndRender = function () {
             theTypesEl.textContent = typesOb[0].join(", ");
             //console.log(pokeWeather[0].main);
             //mainCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
-            mainCardsDiv.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 focus:scale-110')
+            mainCardsDiv.setAttribute('class', 'container ring-2 bg-blue-100 ring-gray-900  h-96 w-60 p-4 m-4 text-center font-semibold')
     
           // console.log(currentDate,currentTime, duration);
-          mainCardsDiv.append(dateEl,timeSlotEl,conditionsEL,weatherIconEl,tempEl, theTypesEl);
+          mainCardsDiv.append("Current Conditions",timeSlotEl,conditionsEL,weatherIconEl,tempEl, "Powered-Up Types:", theTypesEl);
 
 
        }
@@ -379,10 +379,10 @@ const getDataAndRender = function () {
 
             //console.log(pokeWeather[0].main);
             //dayCardsDiv.setAttribute("style","border:3px solid black; width:50%;")
-           dayCardsDiv.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 focus:scale-110')
+           dayCardsDiv.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 w-60 p-4 m-4 text-center font-semibold shadow-inner-lg')
     
           // console.log(currentDate,currentTime, duration);
-          dayCardsDiv.append(dateEl,conditionsEL,weatherIconEl,tempEl,theTypesEl);
+          dayCardsDiv.append("Tommorow",conditionsEL,weatherIconEl,tempEl, "Powered-Up Types:", theTypesEl);
 
 
        }
@@ -425,9 +425,9 @@ const getDataAndRender = function () {
             theTypesEl.textContent = boss[i].join(", ");
             //console.log(pokeWeather[0].main);
             //hourCard.setAttribute("style","border:3px solid black; width:50%;height:50%; display:flex; justify-content: space-between")
-            hourCard.setAttribute('class', 'container ring-2 ring-gray-900 h-80 w-40 mx-4 hover:scale-110 font-semibold')
+            hourCard.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 w-60 text-center p-4 m-4 font-semibold')
           // console.log(currentDate,currentTime, duration);
-          hourCard.append(timeSlotEl,conditionsEL,weatherIconEl,tempEl,theTypesEl);
+          hourCard.append(timeSlotEl,conditionsEL,weatherIconEl,tempEl, "Powered-Up Types:", theTypesEl);
    
            }
 
