@@ -20,6 +20,19 @@ In Pokemon Go, the ambient weather is a determining factor in 'type boosting' (r
 
 ![Card](https://github.com/boogiematrix/Gotta-Catch-A-Vibe/blob/main/public/images/pokemonCard.png)
 
+### Technology used
 
+Tailwind
+Javascript
+jQuery
+moment.js
+
+### Contributers
+
+Dan Ryan - https://github.com/boogiematrix
+Jason Rosas Ramirez - https://github.com/Jasonrosasramirez
+Sakaria Qcorp - https://github.com/Sakaria-Qcorp
+Alexander Feroe - https://github.com/AlexanderFeroe
+William Flemister - https://github.com/DW568
 
 
