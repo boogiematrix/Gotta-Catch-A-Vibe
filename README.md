@@ -2,13 +2,23 @@
 
 ### Description 
 
-This site uses weather of what city you're in to find out which pokemon can give you a type advantage on that day. Three api's were used to make this site funtional with data from weather and temperature to pokemon and pokemon go info. you first enter in your city or area you're in then once you do that you can get info on the type advantage of that day, upto 9 different pokemon with an advantage for every hour 1 pokemon is generated for 8 hours. the last timee block shows next 24 hours from the first.
+In Pokemon Go, the ambient weather is a determining factor in 'type boosting' (rock type, flame type, etc.). This site analyzes the weather of whatever city you search for to determine which pokemon have a type advantage. Three api's are used to get the data necessary to make this site funtional: the openWeather API, pokeAPI, and the pokemon go API. Once you entera city then, the site provides info on the type advantages for the next 8 hours, and for the following day.
 
 ### links to api's
 
 - https://openweathermap.org/api
 - https://pogoapi.net/documentation/
 - https://pokeapi.co/
+
+### link to the site
+
+- https://boogiematrix.github.io/Gotta-Catch-A-Vibe/
+
+### In action
+
+![Header](https://github.com/boogiematrix/Gotta-Catch-A-Vibe/blob/main/public/images/pokemonHeader.png)
+
+![Card](https://github.com/boogiematrix/Gotta-Catch-A-Vibe/blob/main/public/images/pokemonCard.png)
 
 
 
