@@ -1,38 +1,6 @@
-#searchSubmitButton {
-    background-color: rgba(75, 133, 241, 0.979);
-    color:white;
-}
-
-#searchBarID,
-#citySearchHistory {
-    width: 300px;
-    margin: 8px;
-    padding: 8px;
-}
-
-#citySearchHistory p {
-    width: 180px;
-}
-
-/* debug borders below. Delete me when done :) */ 
-
-#seachForaCitySectionID,
-header {
-    border: 2px orange dashed;
-    margin: 15px;
-}
-
-#searchBarID,
-#citySearchHistory {
-    border: 2px purple dashed;
-}
-
-#citySearchHistory p {
-    border: 2px green dashed;
-
-}
-
-h2 {
-    border: 2px green solid;
-
+.forest {
+    background-image: url('public/images/redwoodscene.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }

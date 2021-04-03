@@ -13,7 +13,7 @@ searchSubmitButtonE1.addEventListener("click", function (event) {
   
     getDataAndRender();
 
-    searchHistoryPopulate(city.value); // passes on the city name
+    //searchHistoryPopulate(city.value); // passes on the city name
 
 })
 
@@ -86,7 +86,7 @@ const pokemonSprites = async (backgroundPokemon) => {
     }
     
     //sets the background pokemon image for each hour
-    mainCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[0]}); background-repeat: no-repeat; background-size: 75%; background-position: bottom`);
+    mainCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[0]}); background-repeat: no-repeat; background-size: 35%; background-position: bottom`);
     for (i = 1; i < backgroundPokemon.length - 1; i++) {
         hourCardBackground = document.getElementById(`hour${i}`);
         hourCardBackground.setAttribute('style', `background-image: url(${pokemonImages[i]}); background-repeat: no-repeat; background-size: 75%; background-position: bottom;`)
@@ -216,7 +216,7 @@ function displayMainCard(PokeWeather, typesOb){
     conditionsEL.textContent = PokeWeather.hourly[0].weather[0].main;
     theTypesEl.textContent = typesOb[0].join(", ");
 
-    mainCardsDiv.setAttribute('class', 'container ring-2 bg-blue-100 ring-gray-900  h-96 w-60 p-4 m-4 text-center font-semibold')
+    mainCardsDiv.setAttribute('class', 'container ring-2 bg-blue-100 ring-gray-900  h-96 max-w-lg p-4 my-4 mx-auto text-center shadow-xl font-semibold')
     mainCardsDiv.append("Current Conditions",timeSlotEl,conditionsEL,weatherIconEl,tempEl, "Powered-Up Types:", theTypesEl);
 
 
@@ -256,7 +256,7 @@ function displayDaycard(pokeW, typesO) {
     conditionsEL.textContent = pokeW.hourly[23].weather[0].main;
     theTypesEl.textContent = typesO[8].join(", ");
 
-    dayCardsDiv.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 w-60 p-4 m-4 text-center font-semibold shadow-inner-lg')
+    dayCardsDiv.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 max-w-lg p-4 my-4 mx-auto text-center font-semibold shadow-inner-lg')
     dayCardsDiv.append("Tommorow",conditionsEL,weatherIconEl,tempEl, "Powered-Up Types:", theTypesEl);
 
 
@@ -295,7 +295,7 @@ function displayHourCard(poki, boss) {
         conditionsEL.textContent = poki.hourly[i].weather[0].main;
         theTypesEl.textContent = boss[i].join(", ");
 
-        hourCard.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 w-60 text-center p-4 m-4 font-semibold')
+        hourCard.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 w-60 text-center p-4 my-4 mx-2 font-semibold justify-center inline-block')
 
           hourCard.append(timeSlotEl,conditionsEL,weatherIconEl,tempEl, "Powered-Up Types:", theTypesEl);
    

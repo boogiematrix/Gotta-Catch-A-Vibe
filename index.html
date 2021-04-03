@@ -9,34 +9,34 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
     <link rel="stylesheet" href="public/style.css">
+    <link rel='stylesheet' href='style.css'>
 
     <title>Gotta Catch a Vibe</title>
 </head>
 
-<body class="bg-gray-400">
+<body class="bg-blue-400">
     
-    <header class= "bg-gradient-to-r from-red-700 to-red-500 p-4 text-red-100 relative shadow-xl">
+    <header class= "forest p-4 text-red-100 relative shadow-xl">
         <div class="flex">
             <img class="ring-8 ring-red-100 rounded-md h-20 w-20"
              src="https://cdn0.iconfinder.com/data/icons/pokemon-go-vol-2/135/_Pokeballs-512.png" alt="Three Pokeballs">
-            <h1 class="pl-12 md:pl-50 lg:pl-72 xl:pl-96 text-3xl  md:text-6xl"> Gotta Catcha a Vibe </h1>
+            <h1 class="pl-12 md:pl-50 lg:pl-72 xl:pl-96 text-3xl  md:text-6xl"> Gotta Catch a Vibe </h1>
+        </div>
+        
+        <div class="flex-col p-4 ml-6 text-gray-100">
+            <h2 class="text-2xl md:text-5xl" > Welcome Trainers:</h2>
+            <h3 class="text-lg md:text-2xl lg:text-3xl"> Harness the Power of the Weather to Make the Most of Type Advantages! </h3>
         </div>
     </header>
-
-    <div class="flex-col p-4 ml-6 text-gray-100">
-        <h2 class="text-2xl md:text-5xl" > Welcome Trainers:</h2>
-        <h3 class="text-lg md:text-2xl lg:text-3xl"> Harness the Power of the Weather to Make the Most of Type Advantages! </h3>
-    </div>
  
-    <div class="container mx-auto ring-4 ring-gray-900 p-6 bg-gray-100 shadow-inner-xl">
+    <div class="container m-auto ring-1 ring-green-900 p-6 bg-green-100 shadow-inner-xl">
         <!--City Information Bar-->
 
         <div id="seachForaCitySectionID">
                 <!-- Displays the search bar and some applicable cities -->
 
-            <form id="searchBarID">
-                <label class="font-semibold" for="search"> Search for a City: </label> <br>
-                <input type="text" id="searchInput" placeholder="Search..." name="search" class="ring-2 ring-gray-900 w-40 focus:ring-blue-400 focus:ring-3">
+            <form id="searchBarID" class='flex justify-center'>
+                <input type="text" id="searchInput" placeholder="Search for a city..." name="search" class="ring-2 ring-gray-900 w-60 focus:ring-blue-400 focus:ring-3">
                 <button type="submit" id="searchSubmitButton"> <i class="fas fa-search-location hover:text-gray-400"></i> </button>
             </form>             
                 
@@ -44,10 +44,10 @@
 
 <!--Card Layout-->
         <div>
-            <div class ="mainCard"></div>
+            <div class ="mainCard justify-center"></div>
         
             <div>
-                <div class="hourlyCards">
+                <div class="hourlyCards flex flex-auto flex-wrap justify-around my-4 mx-center">
                     <div id='hour1'></div>
                     <div id='hour2'></div>
                     <div id='hour3'></div>
