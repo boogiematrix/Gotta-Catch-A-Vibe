@@ -4,3 +4,18 @@
     background-size: cover;
     background-position: center;
 }
+
+h1 {
+  background-color: rgba(62, 169, 240, 0.349);
+  text-align: center;
+  border-radius: 15%;
+}
+
+h4 {
+    color: rgb(14, 108, 145);
+    font-size: 24px;
+}
+
+p {
+   font-size: 18px; 
+}

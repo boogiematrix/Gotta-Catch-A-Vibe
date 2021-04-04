@@ -91,7 +91,7 @@ const pokemonSprites = async (backgroundPokemon) => {
         hourCardBackground = document.getElementById(`hour${i}`);
         hourCardBackground.setAttribute('style', `background-image: url(${pokemonImages[i]}); background-repeat: no-repeat; background-size: 75%; background-position: bottom;`)
     }
-    dayCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[8]}); background-repeat: no-repeat; background-size: 75%; background-position: bottom`)
+    dayCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[8]}); background-repeat: no-repeat; background-size: 35%; background-position: bottom`)
     return pokemonImages
 }
 
@@ -135,7 +135,7 @@ const getDataAndRender = function () {
     geocode()
         .then(hourlyWeather)
         .then(function (pokeWeather) {
-            let condition = [];
+            var condition = [];
             let boostedTypes = [];
 
             elementTypes = "";
@@ -172,20 +172,20 @@ const getDataAndRender = function () {
             for (let i = 0; i < condition.length; i++) {
                 boostedTypes.push(weatherBoosters[condition[i]])
             }
-            
+            console.log(pokeWeather)
             pokemonOfAType(boostedTypes)
                 .then(pokemonSprites)
 
-            displayMainCard(pokeWeather, boostedTypes);
-            displayDaycard(pokeWeather, boostedTypes);
-            displayHourCard(pokeWeather, boostedTypes);
+            displayMainCard(condition, boostedTypes);
+            //displayDaycard(condition, boostedTypes);
+            displayHourCard(condition, boostedTypes);
             
             return boostedTypes
 
         })
 
 }
-function displayMainCard(PokeWeather, typesOb){
+function displayMainCard(condition, typesOb){
            
      //connecting to weatherCards div
     var mainCardsDiv = document.querySelector(".mainCard");
@@ -194,11 +194,11 @@ function displayMainCard(PokeWeather, typesOb){
     var currentDate = moment().format("LL");
 
             //Creating the html elements  
-    var dateEl = document.createElement("h2");
+    var dateEl = document.createElement("h4");
             //The time html Element
     var timeSlotEl = document.createElement("h3");
             //weather Icon
-    var weatherIconEl = document.createElement("img");
+    var poweredTypes = document.createElement("h4");
              //weather condition
     var conditionsEL = document.createElement("p");
             // the temperature
@@ -207,22 +207,22 @@ function displayMainCard(PokeWeather, typesOb){
     var theTypesEl = document.createElement("p");
     
             //Setting the html elements for the first card EX
-    dateEl.textContent = currentDate;
-    var ftemp = Math.floor((PokeWeather.hourly[0].temp -273.15) * 1.8 +32);
-    timeSlotEl.textContent = "Now";
-    
-    weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ PokeWeather.hourly[0].weather[0].icon + ".png");
-    tempEl.textContent ="Temp: " + ftemp;
-    conditionsEL.textContent = PokeWeather.hourly[0].weather[0].main;
+    dateEl.textContent = 'Current Conditions';
+    //var ftemp = Math.floor((PokeWeather.hourly[0].temp -273.15) * 1.8 +32);
+    //timeSlotEl.textContent = "Now";
+    poweredTypes.textContent = 'Boosted Types'
+    //weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ PokeWeather.hourly[0].weather[0].icon + ".png");
+    //tempEl.textContent ="Temp: " + ftemp;
+    conditionsEL.textContent = condition[0].split('_').join(' ');
     theTypesEl.textContent = typesOb[0].join(", ");
 
-    mainCardsDiv.setAttribute('class', 'container ring-2 bg-blue-100 ring-gray-900  h-96 max-w-lg p-4 my-4 mx-auto text-center shadow-xl font-semibold')
-    mainCardsDiv.append("Current Conditions",timeSlotEl,conditionsEL,weatherIconEl,tempEl, "Powered-Up Types:", theTypesEl);
+    mainCardsDiv.setAttribute('class', 'container ring-2 bg-blue-100 ring-gray-900  h-96 max-w-xl p-4 my-4 mx-auto text-center shadow-xl font-semibold')
+    mainCardsDiv.append(dateEl, conditionsEL, poweredTypes, theTypesEl);
 
 
 }
        
-function displayDaycard(pokeW, typesO) {
+function displayDaycard(condition, typesO) {
               //connecting to weatherCards dive
     var dayCardsDiv = document.querySelector(".dayCard");
 
@@ -247,24 +247,24 @@ function displayDaycard(pokeW, typesO) {
     
             //Setting the html elements for the first card EX
     dateEl.textContent = nextDay.format("LL");
-    var ftemp = Math.floor((pokeW.hourly[23].temp -273.15) * 1.8 +32);
+    //var ftemp = Math.floor((pokeW.hourly[23].temp -273.15) * 1.8 +32);
     timeSlotEl.textContent = currentTime;
     
-    weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ pokeW.hourly[23].weather[0].icon + ".png");
-    tempEl.textContent ="Temp: " + ftemp;
+    //weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ pokeW.hourly[23].weather[0].icon + ".png");
+    //tempEl.textContent ="Temp: " + ftemp;
 
-    conditionsEL.textContent = pokeW.hourly[23].weather[0].main;
+    conditionsEL.textContent = condition[-1]//pokeW.hourly[23].weather[0].main;
     theTypesEl.textContent = typesO[8].join(", ");
 
-    dayCardsDiv.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 max-w-lg p-4 my-4 mx-auto text-center font-semibold shadow-inner-lg')
+    dayCardsDiv.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 max-w-xl p-4 my-4 mx-auto text-center font-semibold shadow-inner-lg')
     dayCardsDiv.append("Tommorow",conditionsEL,weatherIconEl,tempEl, "Powered-Up Types:", theTypesEl);
 
 
 }
        
-function displayHourCard(poki, boss) {
+function displayHourCard(condition, boss) {
     
-    for (var i = 1; i < 8; i++) {
+    for (var i = 1; i < 7; i++) {
                      //connecting to weatherCards dive
         let hourCard = document.getElementById(`hour${i}`)
     
@@ -276,28 +276,28 @@ function displayHourCard(poki, boss) {
         
             //Creating the html elements  
             //The time html Element
-        var timeSlotEl = document.createElement("h3");
+        var timeSlotEl = document.createElement("h4");
             //weather Icon
         var weatherIconEl = document.createElement("img");
              //weather condition
         var conditionsEL = document.createElement("p");
             // the temperature
-        var tempEl = document.createElement("h4");
+        let poweredTypes = document.createElement("h4");
             //the types
         var theTypesEl = document.createElement("p");
     
             //Setting the html elements for the first card EX
-        var ftemp = Math.floor((poki.hourly[i].temp -273.15) * 1.8 +32);
+        //var ftemp = Math.floor((poki.hourly[i].temp -273.15) * 1.8 +32);
         timeSlotEl.textContent = newtime.format("LT");
-    
-        weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ poki.hourly[i].weather[0].icon + ".png");
-        tempEl.textContent ="Temp: " + ftemp;
-        conditionsEL.textContent = poki.hourly[i].weather[0].main;
+        poweredTypes.textContent = 'Boosted Types'
+        //weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ poki.hourly[i].weather[0].icon + ".png");
+        //tempEl.textContent ="Temp: " + ftemp;
+        conditionsEL.textContent = condition[i]//poki.hourly[i].weather[0].main;
         theTypesEl.textContent = boss[i].join(", ");
 
         hourCard.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 w-60 text-center p-4 my-4 mx-2 font-semibold justify-center inline-block')
 
-          hourCard.append(timeSlotEl,conditionsEL,weatherIconEl,tempEl, "Powered-Up Types:", theTypesEl);
+          hourCard.append(timeSlotEl,conditionsEL, poweredTypes, theTypesEl);
    
     }
 
