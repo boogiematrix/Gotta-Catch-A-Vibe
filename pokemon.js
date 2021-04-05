@@ -75,7 +75,7 @@ const pokemonSprites = async (backgroundPokemon) => {
             let response = await fetch(pokeImageUrl);
             if (response.ok) {
                 pokeImageApiJson = await response.json();
-                if (pokeImageApiJson.sprites.other.dream_world.front_default) {
+                if (pokeImageApiJson.sprites.other["official-artwork"].front_default) {
                     pokemonImages.push(pokeImageApiJson.sprites.other["official-artwork"].front_default)
                 } else {
                     pokemonImages.push(pokeImageApiJson.sprites.front_default)
@@ -86,12 +86,12 @@ const pokemonSprites = async (backgroundPokemon) => {
     }
     
     //sets the background pokemon image for each hour
-    mainCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[0]}); background-repeat: no-repeat; background-size: 35%; background-position: bottom`);
+    mainCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[0]}); background-repeat: no-repeat; background-size: 45%; background-position: bottom`);
     for (i = 1; i < backgroundPokemon.length - 1; i++) {
         hourCardBackground = document.getElementById(`hour${i}`);
         hourCardBackground.setAttribute('style', `background-image: url(${pokemonImages[i]}); background-repeat: no-repeat; background-size: 75%; background-position: bottom;`)
     }
-    dayCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[8]}); background-repeat: no-repeat; background-size: 35%; background-position: bottom`)
+    //dayCardsDiv.setAttribute('style', `background-image: url(${pokemonImages[8]}); background-repeat: no-repeat; background-size: 35%; background-position: bottom`)
     return pokemonImages
 }
 
@@ -141,12 +141,8 @@ const getDataAndRender = function () {
             elementTypes = "";
     
             //translates openweather weather conditions into the 7 weather types used by pokemon go
-            for (i = 0; i < 24; i++) {
-                
-                if (i > 7 && i < 23) {
-                    continue;
-                }
-                
+            for (i = 0; i < 8; i++) {
+                                
                 let weatherId = pokeWeather.hourly[i].weather[0].id;
                 let main = pokeWeather.hourly[i].weather[0].main
                 
@@ -216,7 +212,7 @@ function displayMainCard(condition, typesOb){
     conditionsEL.textContent = condition[0].split('_').join(' ');
     theTypesEl.textContent = typesOb[0].join(", ");
 
-    mainCardsDiv.setAttribute('class', 'container ring-2 bg-blue-100 ring-gray-900  h-96 max-w-xl p-4 my-4 mx-auto text-center shadow-xl font-semibold')
+    mainCardsDiv.setAttribute('class', 'container bg-blue-100 shadow-2xl rounded-md h-96 max-w-xl p-4 my-4 mx-auto text-center shadow-xl font-semibold')
     mainCardsDiv.append(dateEl, conditionsEL, poweredTypes, theTypesEl);
 
 
@@ -295,7 +291,7 @@ function displayHourCard(condition, boss) {
         conditionsEL.textContent = condition[i]//poki.hourly[i].weather[0].main;
         theTypesEl.textContent = boss[i].join(", ");
 
-        hourCard.setAttribute('class', 'container bg-blue-100 ring-2 ring-gray-900 h-96 w-60 text-center p-4 my-4 mx-2 font-semibold justify-center inline-block')
+        hourCard.setAttribute('class', 'container bg-blue-100 shadow-2xl rounded-md h-96 w-60 text-center p-4 my-4 mx-2 font-semibold justify-center inline-block')
 
           hourCard.append(timeSlotEl,conditionsEL, poweredTypes, theTypesEl);
    
