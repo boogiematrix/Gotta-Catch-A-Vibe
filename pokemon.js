@@ -288,7 +288,7 @@ function displayHourCard(condition, boss) {
         poweredTypes.textContent = 'Boosted Types'
         //weatherIconEl.setAttribute("src","http://openweathermap.org/img/w/"+ poki.hourly[i].weather[0].icon + ".png");
         //tempEl.textContent ="Temp: " + ftemp;
-        conditionsEL.textContent = condition[i]//poki.hourly[i].weather[0].main;
+        conditionsEL.textContent = condition[i].split('_').join(' ')//poki.hourly[i].weather[0].main;
         theTypesEl.textContent = boss[i].join(", ");
 
         hourCard.setAttribute('class', 'container bg-blue-100 shadow-2xl rounded-md h-96 w-60 text-center p-4 my-4 mx-2 font-semibold justify-center inline-block')
